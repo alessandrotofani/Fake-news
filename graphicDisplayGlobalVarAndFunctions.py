@@ -73,8 +73,7 @@ def getGraph():
 def drawGraph():
 
     clearNetworkXdisplay()
-    # nx.draw_networkx(common.g, pos, font_size=10, node_size=500, labels=common.g_labels)
-    # nx.draw_networkx_edge_labels(common.g, pos, edge_labels=common.g_edge_labels, font_size=9)
+    ## coloro i nodi a seconda dello score 
     for i in common.orderedListOfNodes:
         if i.score > 0.5:
             common.colordict[i] = 'b'
@@ -84,14 +83,11 @@ def drawGraph():
         nx.draw_networkx(common.g, pos, font_size=10, node_size=500, node_color = [v for v in common.colordict.values()],  labels=common.g_labels)
     if common.PA_done:
         # d = nx.degree(common.g)
-        d = dict(common.g.degree) 
+        d = dict(common.g.degree) ## dizionario che contiene il grado dei nodi
+        ## disegno i nodi con grandezza proporizionale al proprio grado 
         nx.draw_networkx(common.g, pos = nx.spring_layout(common.g), font_size=10, node_size = [ v * 10 for v in d.values()] ,  node_color = [v for v in common.colordict.values()], labels=common.g_labels)
 
-        # nx.draw_networkx(common.g, pos, font_size=10, node_size = [ v * 10 for v in d.values()] ,  node_color = [v for v in common.colordict.values()], labels=common.g_labels)
-    # nx.draw_networkx_edge_labels(common.g, pos)
-    # plt.draw()
-    plt.show()  # used by %Matplotlib inline [without ion()]; not conflicting
-    # with ion()
+    plt.show() 
 
     if common.graphicStatus == "PythonViaTerminal":
         plt.pause(0.01)

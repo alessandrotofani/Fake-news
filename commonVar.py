@@ -10,12 +10,12 @@ g_edge_labels = 0  # this variable will contain the address of the labels of the
 btwn = 0  # this variable will contain the betweenness centrality indicators
 clsn = 0  # this variable will contain the closeness centrality indicators
 
-links_per_node = 3
+links_per_node = 3 ## è il numero di link che ogni nodo formerà 
 prob = 0
 PA_done = False ## mi dice se ho finito il preferential attachment
 orderedListOfNodes = []
 connectednodes= [] ## lista con i nodi che hanno grado diverso da zero 
-colordict = {}
+colordict = {} ## dzionario che contiene (nodo : colore)
 verbose = False
 clonedN = 0
 
