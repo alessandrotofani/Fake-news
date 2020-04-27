@@ -15,6 +15,10 @@ prob = 0
 PA_done = False ## mi dice se ho finito il preferential attachment
 orderedListOfNodes = []
 connectednodes= [] ## lista con i nodi che hanno grado diverso da zero 
+nodesdegree = [] ## lista che contiene i gradi dei nodi
+## tutorial sui dictionary
+## https://www.w3schools.com/python/python_dictionaries.asp
+degreefrequency = {} ## dizionario che contiene la frequenza di un dato grado 
 colordict = {} ## dzionario che contiene (nodo : colore)
 verbose = False
 clonedN = 0

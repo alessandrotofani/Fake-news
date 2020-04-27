@@ -59,30 +59,13 @@ class Agent(SuperAgent):
     def getGraph(self):
         return common.g
 
-    ## funzione usata per inizializzare il preferential attachment
-    ## devo creare un sottografo connesso di m nodi, con m =< links_per_node
-    def initializePA(self): 
-        ## ricorda che self.number parte da 1
-        ## invece l'indice de orderedListOfNodes parte da 0 
-        if self.number < (common.links_per_node + 2) :
-            i = 1
-            while i < (common.links_per_node + 2):             
-                if i != (self.number):
-                    print("self number ", self.number," i ", i)
-                    gvf.createEdge(self,common.orderedListOfNodes[i-1])
-                    ## aggiungo ilnodo che si è connesso alla lista che contiene
-                    ## tutti i nodi già connessi
-                    ## fare ciò è utile per velocizzare l'algortimo di preferential attachment 
-                    common.connectednodes.append(self)
-                i += 1
-        random.seed()
-        return
 
     ## implemento il preferential attachment per tutti i nodi non collegati 
     def PA(self):
         ## escludo i nodi iniziali che già ho connesso 
-        if self.number > 2:
+        if self.number > (common.links_per_node + 1):
             link_formed = 0
+            my_neighbors = []
             while link_formed < common.links_per_node:
                 ## scelgo il nodo a cui connettermi in modo random 
                 i = random.choice(common.connectednodes)
@@ -90,10 +73,11 @@ class Agent(SuperAgent):
                 ## calcolo la probabilità di connettermi al nodo scelto
                 ## probabilità = grado del nodo scelto / grado totale 
                 common.prob =  common.g.degree[i] / tot
-                if random.random() < common.prob:
+                if random.random() < common.prob and i not in my_neighbors:
                     ## creo il link tra i duenodi 
                     gvf.createEdge(self, i)
                     common.connectednodes.append(i)
+                    my_neighbors.append(i)
                     link_formed += 1
             common.connectednodes.append(self)
         common.PA_done = True 
@@ -105,6 +89,7 @@ def totaldegree(): ## funziona
     for i in common.orderedListOfNodes:
         totaldegree += common.g.degree[i]   
     return totaldegree  
+
 
 
 def modPosition():

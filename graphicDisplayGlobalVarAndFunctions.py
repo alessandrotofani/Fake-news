@@ -1,6 +1,8 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import commonVar as common
+import numpy as np
+import random 
 
 
 # the base: creating the graph (and copying its address in a common variable
@@ -68,6 +70,56 @@ def getGraph():
     except BaseException:
         return 0
 
+## funzione per plottare la frequenza dei gradi
+## se la rete è scale free, allora deve esserci una power law 
+## per vedere se c'è la power law uso un plot bi-logaritmico
+def ScaleFreeTest():
+    d = dict(common.g.degree)
+    ## i gradi dei nodi sono interi
+    ## lista che contiene i gradi dei nodi 
+    common.nodesdegree = [v for v in d.values()]
+    common.nodesdegree.sort()
+    print("node degrees ")
+    print(common.nodesdegree)
+    
+    ## inizializzo il dictionary
+    for i in common.nodesdegree:
+        common.degreefrequency[i] = 0 
+    ## calcolo la frequenza di ogni grado 
+    for i in common.nodesdegree:
+        common.degreefrequency[i] += 1
+
+    print("degrees frequency ",common.degreefrequency)  
+    lists = sorted(common.degreefrequency.items())
+    ## serve per passare dal dictionary a due liste separate 
+    # https://stackoverflow.com/questions/37266341/plotting-a-python-dict-in-order-of-key-values/37266356
+    x, y = zip(*lists)
+    log_x = np.log(x)
+    log_y = np.log(y)
+    
+    plt.plot(log_x, log_y, 'o', color = 'black')
+    plt.title("Node degree frequency")
+    plt.xlabel("Node degree (log scale)")
+    plt.ylabel("Degree Frequency (log scale)")
+    
+    plt.show()
+    
+    
+    return  
+
+
+## funzione usata per inizializzare il preferential attachment
+## devo creare un sottografo connesso di m nodi, con m =< links_per_node
+def initializePA(): 
+    for i in range(common.links_per_node + 1):    
+        for j in range(common.links_per_node + 1):  
+            if i != j:
+                createEdge(common.orderedListOfNodes[i], common.orderedListOfNodes[j])
+                print("created edge  ", i + 1, " ", j + 1)
+    for i in range(common.links_per_node):
+        common.connectednodes.append(common.orderedListOfNodes[i])
+    random.seed()
+    return
 
 ## funzione che crea il grafo 
 def drawGraph():
@@ -80,14 +132,25 @@ def drawGraph():
         if i.score <= 0.5:
             common.colordict[i] = 'r'
     if not common.PA_done:
+        print(" The nodes ")
         nx.draw_networkx(common.g, pos, font_size=10, node_size=500, node_color = [v for v in common.colordict.values()],  labels=common.g_labels)
+        initializePA()
     if common.PA_done:
         # d = nx.degree(common.g)
         d = dict(common.g.degree) ## dizionario che contiene il grado dei nodi
-        ## disegno i nodi con grandezza proporizionale al proprio grado 
+        ## disegno i nodi con grandezza proporizionale al proprio grado ù
+        print(" The network ")
         nx.draw_networkx(common.g, pos = nx.spring_layout(common.g), font_size=10, node_size = [ v * 10 for v in d.values()] ,  node_color = [v for v in common.colordict.values()], labels=common.g_labels)
-
+                
     plt.show() 
+    
+    if common.PA_done:
+        print( " Runninng test to see if created network is scale-free")
+        print( " Plotting node degree frequency in log scale ")
+        print( " Power law expected ")
+        ScaleFreeTest()
+    
+    
 
     if common.graphicStatus == "PythonViaTerminal":
         plt.pause(0.01)
