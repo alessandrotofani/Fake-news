@@ -5,7 +5,7 @@ Implementazione con Netlogo
 https://ccl.northwestern.edu/netlogo/models/PreferentialAttachment
 Assegnare lo score agli agenti ... done 
 Definire gli agenti nel file di testo ... done 
+Implementare la verifica dello scale free: ... done 
+https://stackoverflow.com/questions/49908014/how-can-i-check-if-a-network-is-scale-free
 Verificare che la rete sia scale free:
 https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test
-Implementare la verifica dello scale free:
-https://stackoverflow.com/questions/49908014/how-can-i-check-if-a-network-is-scale-free
