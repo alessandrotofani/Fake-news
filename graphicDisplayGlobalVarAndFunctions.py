@@ -144,12 +144,12 @@ def drawGraph():
                 
     plt.show() 
     
-    if common.PA_done:
+    if common.PA_done and common.scale_free_test:
         print( " Runninng test to see if created network is scale-free")
         print( " Plotting node degree frequency in log scale ")
         print( " Power law expected ")
         ScaleFreeTest()
-    
+        common.scale_free_test = False
     
 
     if common.graphicStatus == "PythonViaTerminal":

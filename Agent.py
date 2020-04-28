@@ -38,6 +38,15 @@ class Agent(SuperAgent):
         self.xPos = xPos
         self.yPos = yPos
         
+        ## parte riguardante la trasmissione delle news
+        ## lista che contiene l'id delle news ricevute dal vicino
+        ## id news = posizione della news nella lista news score
+        ## gli id iniziano da 0 per non creare confusione con gli indici
+        self.news_ricevute = [] 
+        ## lista che contiene l'd news che l'agente ha integrato, cioè i suoi belief 
+        self.news_integrate = []
+        
+        
         
         # the graph
         if gvf.getGraph() == 0:
@@ -82,6 +91,26 @@ class Agent(SuperAgent):
             common.connectednodes.append(self)
         common.PA_done = True 
         return      
+    
+    ## funzione che crea la news 
+    def create_news(self):
+        random.seed()
+        if self.number == common.news_creator:
+            ## assegno lo score della notizia in base allo score dell'agente 
+            score = self.score
+            ## aggiungo lo score alla lista degli score 
+            common.news_score.append(score)
+            print("Agent ", self.number," creating news ",common.new_news_id," with score ", score)
+        
+            for i in common.g.neighbors(self):
+                print("Sending news to  ", i.number)
+                ## aggiungo l'id della news alla lista delle news ricevute del mio vicino 
+                i.news_ricevute.append(common.new_news_id)
+        
+            common.new_news_id += 1 
+        
+        return
+    
     
 ## calcola la somma dei degree di tutti i nodi 
 def totaldegree(): ## funziona 

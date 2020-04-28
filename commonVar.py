@@ -1,3 +1,4 @@
+import random 
 prune = False
 pruneThreshold = 0
 
@@ -7,9 +8,13 @@ g = 0  # this variable will contain the address of the graph
 g_labels = 0  # this variable will contain the address of the labels
 g_edge_labels = 0  # this variable will contain the address of the labels of the edges
 
+news_creator = random.randint(1,100)
+
+scale_free_test = True ## dice se lo scale free test deve essere fatto o no 
 btwn = 0  # this variable will contain the betweenness centrality indicators
 clsn = 0  # this variable will contain the closeness centrality indicators
-
+new_news_id = 0 ## contatore dell'id delle news create 
+news_score = [] ## lista che contiene lo score della news ## poi saranno da aggiungere altre liste corispondenti agli altri score 
 links_per_node = 3 ## è il numero di link che ogni nodo formerà 
 prob = 0
 PA_done = False ## mi dice se ho finito il preferential attachment

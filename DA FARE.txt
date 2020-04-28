@@ -9,3 +9,4 @@ Implementare la verifica dello scale free: ... done
 https://stackoverflow.com/questions/49908014/how-can-i-check-if-a-network-is-scale-free
 Verificare che la rete sia scale free:
 https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test
+Implementare meccanismo di creazione della news ... to be continued 
