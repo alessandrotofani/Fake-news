@@ -69,9 +69,17 @@ class Agent(SuperAgent):
         return common.g
 
 
+    def funzione_prova(self):
+        print(" esecuzione numero ", common.prova)
+        common.prova += 1 
+        
+        return common.prova
+        
+
     ## implemento il preferential attachment per tutti i nodi non collegati 
     def PA(self):
         ## escludo i nodi iniziali che già ho connesso 
+        print("Node ", self.number," Creating link with preferential attachment ")
         if self.number > (common.links_per_node + 1):
             link_formed = 0
             my_neighbors = []

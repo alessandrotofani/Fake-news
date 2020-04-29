@@ -1,6 +1,7 @@
 # 1
 # 2
+all funzione_prova
 # 3
-voters PA
+all PA
 # 4
-voters create_news
+all create_news
