@@ -10,6 +10,7 @@ g_edge_labels = 0  # this variable will contain the address of the labels of the
 
 news_creator = random.randint(1,100)
 
+everything_done = True
 scale_free_test = True ## dice se lo scale free test deve essere fatto o no 
 btwn = 0  # this variable will contain the betweenness centrality indicators
 clsn = 0  # this variable will contain the closeness centrality indicators

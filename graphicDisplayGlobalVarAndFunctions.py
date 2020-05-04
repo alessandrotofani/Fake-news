@@ -96,7 +96,8 @@ def ScaleFreeTest():
     x, y = zip(*lists)
     log_x = np.log(x)
     log_y = np.log(y)
-    
+
+    plt.figure()
     plt.plot(log_x, log_y, 'o', color = 'black')
     plt.title("Node degree frequency")
     plt.xlabel("Node degree (log scale)")
@@ -124,6 +125,11 @@ def initializePA():
 ## funzione che crea il grafo 
 def drawGraph():
 
+    if common.scale_free_test == False:
+        plt.close()
+        common.scale_free_test = True
+        common.everything_done = False
+    
     clearNetworkXdisplay()
     ## coloro i nodi a seconda dello score 
     for i in common.orderedListOfNodes:
@@ -141,16 +147,15 @@ def drawGraph():
         ## disegno i nodi con grandezza proporizionale al proprio grado ù
         print(" The network ")
         nx.draw_networkx(common.g, pos = nx.spring_layout(common.g), font_size=10, node_size = [ v * 10 for v in d.values()] ,  node_color = [v for v in common.colordict.values()], labels=common.g_labels)
-                
-    plt.show() 
     
-    if common.PA_done and common.scale_free_test:
+    plt.show()         
+    
+    if common.PA_done and common.scale_free_test and common.everything_done:
         print( " Runninng test to see if created network is scale-free")
         print( " Plotting node degree frequency in log scale ")
         print( " Power law expected ")
         ScaleFreeTest()
         common.scale_free_test = False
-    
 
     if common.graphicStatus == "PythonViaTerminal":
         plt.pause(0.01)
@@ -193,22 +198,22 @@ def drawGraph():
     # shortest paths that pass through v
     # http://networkx.lanl.gov/reference/generated/
     # networkx.algorithms.centrality.betweenness_centrality.html
-        print()
-        print("betweenness_centrality")
-        common.btwn = nx.betweenness_centrality( common.g, normalized=False, weight='weight')
+    print()
+    print("betweenness_centrality")
+    common.btwn = nx.betweenness_centrality( common.g, normalized=False, weight='weight')
     # print btw
     ## stampa la betweenness per ogni nodo 
-        for i in range(len(common.orderedListOfNodes)):
-            print(common.orderedListOfNodes[i].number, common.btwn[common.orderedListOfNodes[i]])
+    for i in range(len(common.orderedListOfNodes)):
+        print(common.orderedListOfNodes[i].number, common.btwn[common.orderedListOfNodes[i]])
 
     # closeness_centrality
     # Closeness centrality at a node is 1/average distance to all other nodes
     # http://networkx.lanl.gov/reference/generated/
     # networkx.algorithms.centrality.closeness_centrality.html
-        print()
-        print("closeness_centrality")
-        common.clsn = nx.closeness_centrality(common.g)
+    print()
+    print("closeness_centrality")
+    common.clsn = nx.closeness_centrality(common.g)
     # print clsn
     ## stampa la closeness per ogni nodo
-        for i in range(len(common.orderedListOfNodes)):
-            print(common.orderedListOfNodes[i].number, common.clsn[common.orderedListOfNodes[i]])
+    for i in range(len(common.orderedListOfNodes)):
+        print(common.orderedListOfNodes[i].number, common.clsn[common.orderedListOfNodes[i]])
