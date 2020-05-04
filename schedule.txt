@@ -1,7 +1,6 @@
 # 1
 # 2
-all funzione_prova
-# 3
 all PA
-# 4
+# 3
 all create_news
+# 4

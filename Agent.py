@@ -67,13 +67,6 @@ class Agent(SuperAgent):
 
     def getGraph(self):
         return common.g
-
-
-    def funzione_prova(self):
-        print(" esecuzione numero ", common.prova)
-        common.prova += 1 
-        
-        return common.prova
         
 
     ## implemento il preferential attachment per tutti i nodi non collegati 

@@ -56,17 +56,3 @@ def otherSubSteps(subStep, address):
         input("Hit enter key to continue")
         return True
 
-    ## implementa prune: elimina i link che hanno peso inferiore alla prune.Threshold
-    ## nota che la pruneThreshold è definita in commonVar.py 
-    elif subStep == "prune":
-        common.prune = True
-        newValue = input(("Prune links with weight < %d\n" +
-                          "Enter to confirm " +
-                          "or introduce a new level: ") %
-                         common.pruneThreshold)
-        if newValue != "":
-            common.pruneThreshold = int(newValue)
-        return True
-
-    else:
-        return False
