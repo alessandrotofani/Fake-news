@@ -43,6 +43,10 @@ class Agent(SuperAgent):
         ## id news = posizione della news nella lista news score
         ## gli id iniziano da 0 per non creare confusione con gli indici
         self.news_ricevute = [] 
+        ## lista che contiene gli id delle news che devo integrare
+        self.news_da_integrare = []
+        ## contatore che mi dice fino a dove sono arrivato ad integrare le news
+        self.counter_news_ricevute = 0
         ## lista che contiene l'd news che l'agente ha integrato, cioè i suoi belief 
         self.news_integrate = []
         
@@ -93,25 +97,64 @@ class Agent(SuperAgent):
         common.PA_done = True 
         return      
     
+    # ## funzione che crea la news 
+    # def create_news(self):
+    #     random.seed()
+    #     if self.number == common.news_creator:
+    #         ## assegno lo score della notizia in base allo score dell'agente 
+    #         score = self.score
+    #         ## aggiungo lo score alla lista degli score 
+    #         common.news_score.append(score)
+    #         print("Agent ", self.number," creating news ",common.new_news_id," with score ", score)
+        
+    #         for i in common.g.neighbors(self):
+    #             print("Sending news to  ", i.number)
+    #             ## aggiungo l'id della news alla lista delle news ricevute del mio vicino 
+    #             i.news_ricevute.append(common.new_news_id)
+        
+    #         common.new_news_id += 1 
+        
+    #     return
+    
+        
     ## funzione che crea la news 
     def create_news(self):
         random.seed()
+        # common.news_creator = random.randint(1, common.total_number_of_nodes)
         if self.number == common.news_creator:
             ## assegno lo score della notizia in base allo score dell'agente 
             score = self.score
-            ## aggiungo lo score alla lista degli score 
-            common.news_score.append(score)
+            ## aggiungo le feature della news al dizionario che contiene tutte le news 
+            common.news.append({"id" : common.new_news_id , 
+                                "autore" : self,
+                                "score" : self.score})    
             print("Agent ", self.number," creating news ",common.new_news_id," with score ", score)
-        
-            for i in common.g.neighbors(self):
-                print("Sending news to  ", i.number)
-                ## aggiungo l'id della news alla lista delle news ricevute del mio vicino 
-                i.news_ricevute.append(common.new_news_id)
-        
+            
+            send_news(self, common.new_news_id)
             common.new_news_id += 1 
         
         return
+            
     
+    ## funzione per integrare la news che mi arriva 
+    ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
+    def integrate_news(self):
+        random.seed()
+        ## provo a integrare le news che mi sono appena arrivate
+        for i in self.news_da_integrare:
+            if common.news["id"] == i:
+                news_score = common.news["score"]
+                autore = common.news["autore"]
+            ## le integro se lo score della news è abbastanza vicino al mio score 
+                if abs(self.score -news_score) < random.random():
+                    self.news_integrate.append(i)
+                    send_news(self, i)
+                    gvf.createEdge(self, autore)
+                self.counter_news_ricevute += 1
+        del self.news_da_integrare[:]
+        
+        return    
+
     
 ## calcola la somma dei degree di tutti i nodi 
 def totaldegree(): ## funziona 
@@ -120,6 +163,22 @@ def totaldegree(): ## funziona
         totaldegree += common.g.degree[i]   
     return totaldegree  
 
+
+def send_news(self, news_to_send):
+    try:
+        for i in common.g.predecessors(self):
+            print("Sending news to  ", i.number)
+            ## aggiungo l'id della news alla lista delle news ricevute del mio vicino 
+            i.news_ricevute.append(news_to_send)   
+            i.news_da_integrare.append(news_to_send)   
+    except BaseException:
+        i = random.randint(1, common.total_number_of_nodes)
+        print("Sending news to  ", i.number)
+        ## aggiungo l'id della news alla lista delle news ricevute del mio vicino 
+        i.news_ricevute.append(news_to_send)
+        i.news_da_integrare.append(news_to_send)
+        
+    return
 
 
 def modPosition():

@@ -3,13 +3,14 @@ prune = False
 pruneThreshold = 0
 
 # debug=True
+total_number_of_nodes = 100
 
 g = 0  # this variable will contain the address of the graph
 g_labels = 0  # this variable will contain the address of the labels
 g_edge_labels = 0  # this variable will contain the address of the labels of the edges
 
-news_creator = random.randint(1,100)
-
+news_creator = random.randint(1, total_number_of_nodes)
+author = [] ## lista che contiene gli autori delle news che vanno in giro 
 everything_done = True
 scale_free_test = True ## dice se lo scale free test deve essere fatto o no 
 btwn = 0  # this variable will contain the betweenness centrality indicators
@@ -28,6 +29,10 @@ degreefrequency = {} ## dizionario che contiene la frequenza di un dato grado
 colordict = {} ## dzionario che contiene (nodo : colore)
 verbose = False
 clonedN = 0
+
+##NEWS SECTION
+news = []
+
 
 # size of the pictures
 width = 20

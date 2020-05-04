@@ -125,6 +125,7 @@ def initializePA():
 ## funzione che crea il grafo 
 def drawGraph():
 
+    common.news_creator = random.randint(1, common.total_number_of_nodes)
     if common.scale_free_test == False:
         plt.close()
         common.scale_free_test = True
