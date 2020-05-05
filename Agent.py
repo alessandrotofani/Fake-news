@@ -76,7 +76,7 @@ class Agent(SuperAgent):
     ## implemento il preferential attachment per tutti i nodi non collegati 
     def PA(self):
         ## escludo i nodi iniziali che già ho connesso 
-        print("Node ", self.number," Creating link with preferential attachment ")
+        # print("Node ", self.number," Creating link with preferential attachment ")
         if self.number > (common.links_per_node + 1):
             link_formed = 0
             my_neighbors = []
@@ -88,7 +88,7 @@ class Agent(SuperAgent):
                 ## probabilità = grado del nodo scelto / grado totale 
                 common.prob =  common.g.degree[i] / tot
                 if random.random() < common.prob and i not in my_neighbors:
-                    ## creo il link tra i duenodi 
+                    ## creo il link tra i due nodi 
                     gvf.createEdge(self, i)
                     common.connectednodes.append(i)
                     my_neighbors.append(i)
@@ -96,25 +96,6 @@ class Agent(SuperAgent):
             common.connectednodes.append(self)
         common.PA_done = True 
         return      
-    
-    # ## funzione che crea la news 
-    # def create_news(self):
-    #     random.seed()
-    #     if self.number == common.news_creator:
-    #         ## assegno lo score della notizia in base allo score dell'agente 
-    #         score = self.score
-    #         ## aggiungo lo score alla lista degli score 
-    #         common.news_score.append(score)
-    #         print("Agent ", self.number," creating news ",common.new_news_id," with score ", score)
-        
-    #         for i in common.g.neighbors(self):
-    #             print("Sending news to  ", i.number)
-    #             ## aggiungo l'id della news alla lista delle news ricevute del mio vicino 
-    #             i.news_ricevute.append(common.new_news_id)
-        
-    #         common.new_news_id += 1 
-        
-    #     return
     
         
     ## funzione che crea la news 
@@ -140,21 +121,32 @@ class Agent(SuperAgent):
     ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
     def integrate_news(self):
         random.seed()
-        ## provo a integrare le news che mi sono appena arrivate
+        # provo a integrare le news che mi sono appena arrivate
         for i in self.news_da_integrare:
-            if common.news["id"] == i:
-                news_score = common.news["score"]
-                autore = common.news["autore"]
-            ## le integro se lo score della news è abbastanza vicino al mio score 
-                if abs(self.score -news_score) < random.random():
-                    self.news_integrate.append(i)
-                    send_news(self, i)
-                    gvf.createEdge(self, autore)
-                self.counter_news_ricevute += 1
-        del self.news_da_integrare[:]
-        
-        return    
-
+            ## seleziono la news dal dictionary che le contiene tutte 
+            for news in common.news:
+                if news["id"] == i:
+                    ## estraggo le feature della news 
+                    news_score = news["score"]
+                    autore = news["autore"]
+                    ## le integro se lo score della news è abbastanza vicino al mio score 
+                    if abs(self.score - news_score) < random.random():
+                        print("News ", i, " with score ", news_score," tweeted by ", 
+                              autore.number," has been retweeted by agent ", self.number  )
+                        ## aggiungo l'id della news tra le news integrate
+                        self.news_integrate.append(i)
+                        ## se integro la news allora modifico il mio score a seconda 
+                        # ## dello score della news integrata 
+                        # self.score = self.score + ((news_score - 0.5) / 100 )
+                        ## mando la notizia ai miei follower
+                        send_news(self, i)
+                        ## creo un link con l'autore della news
+                        gvf.createEdge(self, autore)
+                        ## aumento il contatore delle news ricevute 
+                        self.counter_news_ricevute += 1
+        ## pulisco la lista delle news da integrare 
+        del self.news_da_integrare[:]        
+        return   
     
 ## calcola la somma dei degree di tutti i nodi 
 def totaldegree(): ## funziona 
@@ -164,21 +156,33 @@ def totaldegree(): ## funziona
     return totaldegree  
 
 
+## funzione che serve per inviare la news 
 def send_news(self, news_to_send):
+    done = False ## serve per controllare se il nodo ha dei predecessors o no 
     try:
+        ## seleziono i destinatari della news =  i miei follower 
         for i in common.g.predecessors(self):
             print("Sending news to  ", i.number)
-            ## aggiungo l'id della news alla lista delle news ricevute del mio vicino 
+            ## aggiungo l'id della news alla lista delle news ricevute del mio follower
             i.news_ricevute.append(news_to_send)   
+            ## aggiungo l'id della news alla lista delle news da integrare del mio follower
             i.news_da_integrare.append(news_to_send)   
+            done = True 
+            
+        ## se il nodo selezionato non ha follower, allora sceglie un nodo a caso e la manda a lui        
+        if not done:
+            i = random.choice(common.orderedListOfNodes)
+            print("Sending news to  ", i.number)
+            ## aggiungo l'id della news alla lista delle news ricevute dal destinatario
+            i.news_ricevute.append(news_to_send)
+            ## aggiungo l'id della news alla lista delle news da integrare del mio follower
+            i.news_da_integrare.append(news_to_send)
+                   
     except BaseException:
-        i = random.randint(1, common.total_number_of_nodes)
-        print("Sending news to  ", i.number)
-        ## aggiungo l'id della news alla lista delle news ricevute del mio vicino 
-        i.news_ricevute.append(news_to_send)
-        i.news_da_integrare.append(news_to_send)
-        
+        print("Not done")        
+     
     return
+
 
 
 def modPosition():

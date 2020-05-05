@@ -20,6 +20,7 @@ def createGraph():
     common.g_edge_labels = {}  # copy the address of the labels of the edges
 
 
+## https://networkx.github.io/documentation/stable/auto_examples/drawing/plot_weighted_graph.html
 ## creo un link tra i nodi a e b 
 def createEdge(a, b):
     # implicitly directed, due to the use of DiGraph

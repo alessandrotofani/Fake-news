@@ -9,4 +9,8 @@ Implementare la verifica dello scale free: ... done
 https://stackoverflow.com/questions/49908014/how-can-i-check-if-a-network-is-scale-free
 Verificare che la rete sia scale free:
 https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test
-Implementare meccanismo di creazione della news ... to be continued 
+Implementare meccanismo di creazione della news ... done
+Implementare trasferimento della news ... done
+Implementare integrazione della news ... done
+Associare ad ogni link un certo peso
+https://networkx.github.io/documentation/stable/auto_examples/drawing/plot_weighted_graph.html
