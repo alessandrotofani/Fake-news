@@ -1,16 +1,29 @@
-Costruire i nodi ... done
-Implementare il preferential attachment ... done
-https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model
-Implementazione con Netlogo
+FASE 1: COSTRUZIONE DELLA RETE 
+- Costruire i nodi ... done
+- Implementare il preferential attachment ... done
+- https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model
+- Implementazione con Netlogo
 https://ccl.northwestern.edu/netlogo/models/PreferentialAttachment
-Assegnare lo score agli agenti ... done 
-Definire gli agenti nel file di testo ... done 
-Implementare la verifica dello scale free: ... done 
+
+FASE 2: COSTRUZIONE DEGLI AGENTI
+- Assegnare lo score agli agenti ... done 
+- Definire gli agenti nel file di testo ... done 
+- Implementare la verifica dello scale free: ... done 
 https://stackoverflow.com/questions/49908014/how-can-i-check-if-a-network-is-scale-free
-Verificare che la rete sia scale free:
+- Verificare che la rete sia scale free:
 https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test
-Implementare meccanismo di creazione della news ... done
-Implementare trasferimento della news ... done
-Implementare integrazione della news ... done
-Associare ad ogni link un certo peso
+
+FASE 3: MECCANISMI DI INTERAZIONE
+- Implementare meccanismo di creazione della news ... done
+- Implementare trasferimento della news ... done
+- Implementare integrazione della news ... done
+
+FASE 4: REGOLE DELLA DINAMICA 
+- Associare ad ogni link un certo peso
 https://networkx.github.io/documentation/stable/auto_examples/drawing/plot_weighted_graph.html
+- Capire le regole della dinamica da applicare (guardare articolo)
+
+FASE 5: ANALISI DATI
+- Impostare l'analisi dati: conviene scrivere i dati in un file separato 
+https://www.programiz.com/python-programming/writing-csv-files
+https://www.w3schools.com/python/python_file_write.asp
