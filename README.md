@@ -2,6 +2,8 @@
 Stiamo realizzando un modello ad agenti in SLAPP, per simulare la diffusione di fake news su Twitter, nello scenario delle presidenziali 
 USA del 2016.
 
+![alt text](https://dynaimage.cdn.cnn.com/cnn/q_auto,h_600/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F180126190057-08-white-house-mueller-denial-quotes-restricted.jpg)
+
 ## Il modello
 I nodi rappresentano gli agenti, cioè gli account twitter.
 I link rappresentano i retweet, cioè il nodo A è connesso al nodo B, se l'account A ha retwettato un tweet dell'account B.
