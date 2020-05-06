@@ -5,7 +5,7 @@ USA del 2016.
 ## Il modello
 I nodi rappresentano gli agenti, cioè gli account twitter.
 I link rappresentano i retweet, cioè il nodo A è connesso al nodo B, se l'account A ha retwettato un tweet dell'account B.
-1. Si parte da un network random, free scale e diretto, con un numero fissato di nodi.
+1. Si parte da un network random, scale free e diretto, con un numero fissato di nodi.
 2. Si impostano le regole della dinamica.
 3. Si valuta l'evoluzione del network nel tempo. 
 4. Analisi dei dati. 
