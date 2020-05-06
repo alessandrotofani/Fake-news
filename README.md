@@ -1,5 +1,5 @@
 # Fake-news
-Stiamo realizzando un modello ad agenti in SLAPP, per simulare la diffusione di fake news in Twitter, nello scenario delle presidenziali 
+Stiamo realizzando un modello ad agenti in SLAPP, per simulare la diffusione di fake news su Twitter, nello scenario delle presidenziali 
 USA del 2016.
 
 ## Il modello
