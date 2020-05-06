@@ -14,6 +14,7 @@ I link rappresentano i retweet, cioè il nodo A è connesso al nodo B, se l'acco
 
 ## Dataset sul network di retweet 
 Per quanto riguarda i dati e le regole della dinamica, ci basiamo sul seguente [paper](https://www.nature.com/articles/s41467-018-07761-2) consultabile gratuitamente. 
+Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/articles/s41467-018-07761-2/tables/2)
 
 ## Sviluppo
 ### Fase 1: costruzione della rete ... completata
