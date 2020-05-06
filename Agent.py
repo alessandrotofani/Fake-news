@@ -89,7 +89,8 @@ class Agent(SuperAgent):
                 common.prob =  common.g.degree[i] / tot
                 if random.random() < common.prob and i not in my_neighbors:
                     ## creo il link tra i due nodi 
-                    gvf.createEdge(self, i)
+                    # gvf.createEdge(self, i)
+                    gvf.createEdge(i, self)
                     common.connectednodes.append(i)
                     my_neighbors.append(i)
                     link_formed += 1
@@ -129,21 +130,26 @@ class Agent(SuperAgent):
                     ## estraggo le feature della news 
                     news_score = news["score"]
                     autore = news["autore"]
-                    ## le integro se lo score della news è abbastanza vicino al mio score 
-                    if abs(self.score - news_score) < random.random():
-                        print("News ", i, " with score ", news_score," tweeted by ", 
-                              autore.number," has been retweeted by agent ", self.number  )
-                        ## aggiungo l'id della news tra le news integrate
-                        self.news_integrate.append(i)
-                        ## se integro la news allora modifico il mio score a seconda 
-                        # ## dello score della news integrata 
-                        # self.score = self.score + ((news_score - 0.5) / 100 )
-                        ## mando la notizia ai miei follower
-                        send_news(self, i)
-                        ## creo un link con l'autore della news
-                        gvf.createEdge(self, autore)
-                        ## aumento il contatore delle news ricevute 
-                        self.counter_news_ricevute += 1
+                    ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
+                    ## controllo che io non sia l'autore della news
+                    ## controllo che non abbia già ricondiviso la news 
+                    if autore != self and i not in self.news_integrate:
+                        ## le integro se lo score della news è abbastanza vicino al mio score 
+                        if abs(self.score - news_score) < random.random():
+                            print("News ", i, " with score ", news_score," tweeted by ", 
+                                  autore.number," has been retweeted by agent ", self.number  )
+                            ## aggiungo l'id della news tra le news integrate
+                            self.news_integrate.append(i)
+                            ## se integro la news allora modifico il mio score a seconda 
+                            # ## dello score della news integrata 
+                            # self.score = self.score + ((news_score - 0.5) / 100 )
+                            ## mando la notizia ai miei follower
+                            send_news(self, i)
+                            ## creo un link con l'autore della news
+                            # gvf.createEdge(self, autore)
+                            gvf.createEdge(autore, self)
+                            ## aumento il contatore delle news ricevute 
+                            self.counter_news_ricevute += 1
         ## pulisco la lista delle news da integrare 
         del self.news_da_integrare[:]        
         return   

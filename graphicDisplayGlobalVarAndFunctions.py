@@ -148,7 +148,9 @@ def drawGraph():
         d = dict(common.g.degree) ## dizionario che contiene il grado dei nodi
         ## disegno i nodi con grandezza proporizionale al proprio grado ù
         print(" The network ")
-        nx.draw_networkx(common.g, pos = nx.spring_layout(common.g), font_size=10, node_size = [ v * 10 for v in d.values()] ,  node_color = [v for v in common.colordict.values()], labels=common.g_labels)
+        ## https://en.wikipedia.org/wiki/Force-directed_graph_drawing
+        ## https://networkx.github.io/documentation/stable/reference/generated/networkx.drawing.layout.spring_layout.html
+        nx.draw_networkx(common.g, pos = nx.spring_layout(common.g, k = 3), font_size=10, node_size = [ v * 10 for v in d.values()] ,  node_color = [v for v in common.colordict.values()], labels=common.g_labels)
     
     plt.show()         
     
