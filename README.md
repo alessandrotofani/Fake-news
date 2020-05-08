@@ -39,7 +39,7 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 ### Fase 4: regole della dinamica 
 - Associare ad ogni link un certo peso
 [Network pesati](https://networkx.github.io/documentation/stable/auto_examples/drawing/plot_weighted_graph.html)
-- Capire le regole della dinamica da applicare (guardare articolo)
+- Capire le [regole della dinamica](https://docs.google.com/document/d/1kIeEAsEj68Kzrlez-EyenRuGMm5y2Hc0zdkFIFzppUE/edit?usp=sharing) da applicare (guardare articolo)
 
 ### Fase 5: analisi dati 
 - Impostare l'analisi dati: conviene scrivere i dati in un file separato 
