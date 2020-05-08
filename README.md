@@ -44,7 +44,7 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 ### Fase 5: analisi dati 
 - Impostare l'analisi dati: conviene scrivere i dati in un file separato 
 [Scrivere un file csv](https://www.programiz.com/python-programming/writing-csv-file)
-[Scriver un file da python](https://www.w3schools.com/python/python_file_write.asp)
+[Scrivere un file da python](https://www.w3schools.com/python/python_file_write.asp)
 
 ## Useful links
 [md file cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
