@@ -167,7 +167,8 @@ def send_news(self, news_to_send):
     done = False ## serve per controllare se il nodo ha dei predecessors o no 
     try:
         ## seleziono i destinatari della news =  i miei follower 
-        for i in common.g.predecessors(self):
+        # for i in common.g.predecessors(self):
+        for i in common.g.neighbors(self):
             print("Sending news to  ", i.number)
             ## aggiungo l'id della news alla lista delle news ricevute del mio follower
             i.news_ricevute.append(news_to_send)   
