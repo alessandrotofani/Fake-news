@@ -45,6 +45,10 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 - Impostare l'analisi dati: conviene scrivere i dati in un file separato 
 [Scrivere un file csv](https://www.programiz.com/python-programming/writing-csv-file)
 [Scrivere un file da python](https://www.w3schools.com/python/python_file_write.asp)
+- Network Analysis: 
+[Power law fitting](https://github.com/micheletizzoni/Complexity-in-social-systems/blob/master/2-networkx/nb04_powerlaw_fitting.ipynb) //
+[Clustering](https://github.com/micheletizzoni/Complexity-in-social-systems/blob/master/2-networkx/nb05_network_analysis.ipynb)
+
 
 ## Useful links
 [md file cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
