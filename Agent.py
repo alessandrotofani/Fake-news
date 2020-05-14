@@ -59,7 +59,7 @@ class Agent(SuperAgent):
         # the agent
         ## stampo l'agente che ho creato
         print("agent of type", self.agType,
-              "#", self.number, "has been created at", self.xPos, ",", self.yPos, " with score ", self.score)
+              "#", self.number, "has been with score ", self.score)
             
         ## aggiungo un nodo, corrispondente all'agente creato, nel grafo 
         common.g.add_node(self)
@@ -109,14 +109,39 @@ class Agent(SuperAgent):
             ## aggiungo le feature della news al dizionario che contiene tutte le news 
             common.news.append({"id" : common.new_news_id , 
                                 "autore" : self,
-                                "score" : self.score})    
+                                "score" : self.score,
+                                "id autore" : self.number,
+                                "agent type" : self.agType})    
             print("Agent ", self.number," creating news ",common.new_news_id," with score ", score)
             
             send_news(self, common.new_news_id)
             common.new_news_id += 1 
         
         return
-            
+     
+    ## funzione che permette ai bot di creare la news 
+    ## non c'è un controllo sill'id dei bot quando creo la news
+    ## circa il 4% degli utenti sono bot
+    ## generano più tweet dei normali user 
+    ## interazione human-human come quella bot-human     
+    def bot_create_news(self):
+        random.seed()
+        score = random.uniform(0, 0.1)
+        ## aggiungo le feature della news al dizionario che contiene tutte le news 
+        common.news.append({"id" : common.new_news_id , 
+                            "autore" : self,
+                            "score" : self.score,
+                            "id autore" : self.number,
+                            "agent type" : self.agType})    
+        print("Agent ", self.number," creating news ",common.new_news_id," with score ", score)
+        
+        send_news(self, common.new_news_id)
+        common.new_news_id += 1
+        
+        
+        return
+    
+        
     
     ## funzione per integrare la news che mi arriva 
     ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
@@ -153,6 +178,45 @@ class Agent(SuperAgent):
         ## pulisco la lista delle news da integrare 
         del self.news_da_integrare[:]        
         return   
+    
+    ## funzione per integrare la news che arriva al bot
+    ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
+    def bot_integrate_news(self):
+        random.seed()
+        # provo a integrare le news che mi sono appena arrivate
+        for i in self.news_da_integrare:
+            ## seleziono la news dal dictionary che le contiene tutte 
+            for news in common.news:
+                if news["id"] == i:
+                    ## estraggo le feature della news 
+                    news_score = news["score"]
+                    autore = news["autore"]
+                    ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
+                    ## controllo che io non sia l'autore della news
+                    ## controllo che non abbia già ricondiviso la news 
+                    if autore != self and i not in self.news_integrate:
+                        ## le integro se lo score della news è abbastanza vicino al mio score 
+                        if news_score <= 0.1:
+                            print("News ", i, " with score ", news_score," tweeted by ", 
+                                  autore.number," has been retweeted by agent ", self.number  )
+                            ## aggiungo l'id della news tra le news integrate
+                            self.news_integrate.append(i)
+                            ## se integro la news allora modifico il mio score a seconda 
+                            # ## dello score della news integrata 
+                            # self.score = self.score + ((news_score - 0.5) / 100 )
+                            ## mando la notizia ai miei follower
+                            send_news(self, i)
+                            ## creo un link con l'autore della news
+                            # gvf.createEdge(self, autore)
+                            gvf.createEdge(autore, self)
+                            ## aumento il contatore delle news ricevute 
+                            self.counter_news_ricevute += 1
+        ## pulisco la lista delle news da integrare 
+        del self.news_da_integrare[:]        
+        return   
+    
+    
+    
     
 ## calcola la somma dei degree di tutti i nodi 
 def totaldegree(): ## funziona 
