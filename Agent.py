@@ -25,16 +25,54 @@ class Agent(SuperAgent):
         common.orderedListOfNodes.append(self)
         self.myWorldState = myWorldState
         self.agType = agType
-        ## assegno lo score a ciuscun agente in modo random 
+        # ## assegno lo score a ciuscun agente in modo random 
         self.score = random.random()
+
+        ## creo gli user in proporzione
+        ## problema di self.number con i bot
+        ## fake news bots
+        if self.number <= (10000 + common.number_of_bots * 0.75 ) and self.agType == "bots":
+            self.score = random.uniform(0, 0.1)
+        ## bias left bots
+        if self.number > (10000 + common.number_of_bots * 0.75 ) and self.number <= (10000 + common.number_of_bots) and self.agType == "bots":
+            self.score = random.uniform(0.8, 0.9)
+        ##fake news users
+        if self.number < (0.02 * common.number_of_users):
+            self.score = random.uniform(0, 0.1)            
+        ## bias right
+        if self.number < (0.9 * common.number_of_users) and self.number > (0.02 * common.number_of_users):
+            self.score = random.uniform(0.1, 0.2)            
+        ## right 
+        if self.number < (0.19 * common.number_of_users) and self.number > (0.9 * common.number_of_users):
+            self.score = random.uniform(0.2, 0.3)          
+        ## right leaning 
+        if self.number < (0.25 * common.number_of_users) and self.number > (0.19 * common.number_of_users):
+            self.score = random.uniform(0.3, 0.45) 
+        ## center
+        if self.number < (0.49 * common.number_of_users) and self.number > (0.25 * common.number_of_users):
+            self.score = random.uniform(0.45, 0.55) 
+        ## left leaning
+        if self.number < (0.79 * common.number_of_users) and self.number > (0.49 * common.number_of_users):
+            self.score = random.uniform(0.55, 0.7) 
+        ## left 
+        if self.number < (0.95 * common.number_of_users) and self.number > (0.79 * common.number_of_users):
+            self.score = random.uniform(0.7, 0.8) 
+        ## bias left 
+        if self.number <= common.number_of_users and self.number > (0.95 * common.number_of_users):
+            self.score = random.uniform(0.8, 0.9) 
+        ## left fake news does not exist
+        ## fermo lo score a 0,9 su 1 
+        
+        
         ## i primi due agenti, che saranno quelli con grado più alto ( causa della costruzione della rete
         ## con il preferential attachment), gli do uno score fisso
         if self.number == 1:
             self.score = 0.80
         if self.number == 2:
-            self.score = 0.20           
-        xPos = random.uniform(-9, 9)
-        yPos = random.uniform(-9, 9)
+            self.score = 0.20
+      
+        xPos = 0
+        yPos = 0
         self.xPos = xPos
         self.yPos = yPos
         

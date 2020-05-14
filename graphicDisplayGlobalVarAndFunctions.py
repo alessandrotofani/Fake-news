@@ -110,8 +110,9 @@ def ScaleFreeTest():
     return  
 
 
-## funzione usata per inizializzare il preferential attachment
-## devo creare un sottografo connesso di m nodi, con m =< links_per_node
+# funzione usata per inizializzare il preferential attachment
+# devo creare un sottografo connesso di m nodi, con m =< links_per_node
+# devo fare in modo che i tre nodi abbiano score diverso
 def initializePA(): 
     for i in range(common.links_per_node + 1):    
         for j in range(common.links_per_node + 1):  
@@ -122,6 +123,8 @@ def initializePA():
         common.connectednodes.append(common.orderedListOfNodes[i])
     random.seed()
     return
+    
+
 
 ## funzione che crea il grafo 
 def drawGraph():

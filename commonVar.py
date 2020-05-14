@@ -1,10 +1,15 @@
 import random 
+import math
 ## tutorial sui dictionary
 ## https://www.w3schools.com/python/python_dictionaries.asp
 
 ## NODE SECTION
 ## numero totale di nodi nel network
 total_number_of_nodes = 100
+users = 0.96 * total_number_of_nodes
+number_of_users = math.floor(users)
+number_of_bots = total_number_of_nodes - number_of_users
+
 links_per_node = 3 ## è il numero di link che ogni nodo formerà 
 orderedListOfNodes = []
 connectednodes= [] ## lista con i nodi che hanno grado diverso da zero 
