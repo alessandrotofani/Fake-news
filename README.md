@@ -42,7 +42,7 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 -[Regole della dinamica](https://docs.google.com/document/d/1kIeEAsEj68Kzrlez-EyenRuGMm5y2Hc0zdkFIFzppUE/edit?usp=sharing):
   - Creazione bot ... done 
   - Meccanismi di interazione bot ... done
-  - Creare gli agenti (con i diversi score) rispettando le proporzioni indicate in tabella
+  - Creare gli agenti (con i diversi score) rispettando le [proporzioni](https://docs.google.com/spreadsheets/d/12tik2m_w-y7LoZE5tSWOoTFDNzIT6hjsoO4Oaqabnoc/edit#gid=0) indicate in tabella
 
 ### Fase 5: analisi dati 
 - Impostare l'analisi dati: conviene scrivere i dati in un file separato 
