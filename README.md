@@ -51,6 +51,7 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 - Network Analysis: 
 [Power law fitting](https://github.com/micheletizzoni/Complexity-in-social-systems/blob/master/2-networkx/nb04_powerlaw_fitting.ipynb) //
 [Clustering](https://github.com/micheletizzoni/Complexity-in-social-systems/blob/master/2-networkx/nb05_network_analysis.ipynb)
+//[Barabasi power law fitting](https://barabasi.com/f/623.pdf) vedere pagina 44. 
 
 
 ## Useful links
