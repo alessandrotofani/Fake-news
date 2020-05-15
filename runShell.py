@@ -2,8 +2,8 @@
 import os
 import sys
 
-os.chdir("./6 objectSwarmObserverAgents_AESOP_turtleLib_NetworkX")
-sys.path.append("./")
+#os.chdir("./6 objectSwarmObserverAgents_AESOP_turtleLib_NetworkX")
+#sys.path.append("./")
 import start
 
 start.runSLAPP()
