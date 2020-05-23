@@ -16,65 +16,54 @@ class Agent(SuperAgent):
         
         # the environment
         self.agOperatingSets = []
-        ## ricorda che self.number parte da 1
+        ## ricorda che self.number parte da 0
         ## invece l'indice de orderedListOfNodes parte da 0 
         self.number = number
         ## metto il nodo appena creato nella lista che li contiene tutti
         ## nota: quando si passa self, si passa l'intero oggetto, quando invece si passa self.parametro,
         ## si passa solo il valore di quel parametro 
         common.orderedListOfNodes.append(self)
+        common.agents[self.number] = self
         self.myWorldState = myWorldState
         self.agType = agType
-        # ## assegno lo score a ciuscun agente in modo random 
+        ## assegno lo score a ciuscun agente in modo random 
         self.score = random.random()
 
-        ## creo gli user in proporzione
-        ## problema di self.number con i bot
-        ## fake news bots
-        if self.number <= (10000 + common.number_of_bots * 0.75 ) and self.agType == "bots":
+
+        if self.agType == "left_broadcasters":
+            self.score = random.uniform(0.45,0.7)
+            
+        ## assegno lo score in base alle proporzioni di users
+        if self.agType == "voters":
+            if self.number >= (common.number_of_left_broadcasters - 1) and self.number < common.fake_news_users :
+                self.score = random.uniform(0 , 0.1)
+            if self.number >= ( common.bias_right_users - 1 ) and self.number < common.right_users :
+                self.score = random.uniform(0.1 , 0.2)
+            if self.number >= ( common.right_users - 1 ) and self.number < common.right_leaning_users :
+                self.score = random.uniform(0.2 , 0.3)
+            if self.number >= ( common.right_leaning_users - 1 ) and self.number < common.center_users :
+                self.score = random.uniform(0.3 , 0.45)
+            if self.number >= ( common.center_users - 1 ) and self.number < common.left_leaning_users :
+                self.score = random.uniform(0.45 , 0.55)
+            if self.number >= ( common.left_leaning_users - 1 ) and self.number < common.left_users :
+                self.score = random.uniform(0.55 , 0.7)
+            if self.number >= ( common.left_users - 1 ) and self.number < common.bias_left_users :
+                self.score = random.uniform(0.7 , 0.8)
+            if self.number >= ( common.bias_left_users - 1 ):
+                self.score = random.uniform(0.8 , 0.9)
+                
+        if self.agType == "right_bots":
             self.score = random.uniform(0, 0.1)
-        ## bias left bots
-        if self.number > (10000 + common.number_of_bots * 0.75 ) and self.number <= (10000 + common.number_of_bots) and self.agType == "bots":
+            
+        if self.agType == "left_bots":
             self.score = random.uniform(0.8, 0.9)
-        ##fake news users
-        if self.number < (0.02 * common.number_of_users):
-            self.score = random.uniform(0, 0.1)            
-        ## bias right
-        if self.number < (0.9 * common.number_of_users) and self.number > (0.02 * common.number_of_users):
-            self.score = random.uniform(0.1, 0.2)            
-        ## right 
-        if self.number < (0.19 * common.number_of_users) and self.number > (0.9 * common.number_of_users):
-            self.score = random.uniform(0.2, 0.3)          
-        ## right leaning 
-        if self.number < (0.25 * common.number_of_users) and self.number > (0.19 * common.number_of_users):
-            self.score = random.uniform(0.3, 0.45) 
-        ## center
-        if self.number < (0.49 * common.number_of_users) and self.number > (0.25 * common.number_of_users):
-            self.score = random.uniform(0.45, 0.55) 
-        ## left leaning
-        if self.number < (0.79 * common.number_of_users) and self.number > (0.49 * common.number_of_users):
-            self.score = random.uniform(0.55, 0.7) 
-        ## left 
-        if self.number < (0.95 * common.number_of_users) and self.number > (0.79 * common.number_of_users):
-            self.score = random.uniform(0.7, 0.8) 
-        ## bias left 
-        if self.number <= common.number_of_users and self.number > (0.95 * common.number_of_users):
-            self.score = random.uniform(0.8, 0.9) 
-        ## left fake news does not exist
-        ## fermo lo score a 0,9 su 1 
-        
-        
-        ## i primi due agenti, che saranno quelli con grado più alto ( causa della costruzione della rete
-        ## con il preferential attachment), gli do uno score fisso
-        if self.number == 1:
-            self.score = 0.80
-        if self.number == 2:
-            self.score = 0.20
-      
-        xPos = 0
-        yPos = 0
-        self.xPos = xPos
-        self.yPos = yPos
+            
+        if self.agType == "breitbart":
+            self.score = 0.02
+
+
+        self.xPos = 0
+        self.yPos = 0
         
         ## parte riguardante la trasmissione delle news
         ## lista che contiene l'id delle news ricevute dal vicino
@@ -93,55 +82,25 @@ class Agent(SuperAgent):
         # the graph
         if gvf.getGraph() == 0:
             gvf.createGraph()
+            print("Creating the network with ", common.total_number_of_nodes," agents.")
+            print("Voters and broadcasters: ", common.number_of_users)
+            print("Bots: ", common.number_of_bots)
+            # print("Broadcasters: ", common.number_of_left_broadcasters)
 
-        # the agent
-        ## stampo l'agente che ho creato
-        print("agent of type", self.agType,
-              "#", self.number, "has been with score ", self.score)
-            
-        ## aggiungo un nodo, corrispondente all'agente creato, nel grafo 
-        common.g.add_node(self)
-        gvf.colors[self] = "LightGray"
-        gvf.pos[self] = (xPos, yPos)
-        gvf.pos[self.number] = (xPos, yPos)
-        common.g_labels[self] = str(number)
 
 
     def getGraph(self):
         return common.g
         
 
-    ## implemento il preferential attachment per tutti i nodi non collegati 
-    def PA(self):
-        ## escludo i nodi iniziali che già ho connesso 
-        # print("Node ", self.number," Creating link with preferential attachment ")
-        if self.number > (common.links_per_node + 1):
-            link_formed = 0
-            my_neighbors = []
-            while link_formed < common.links_per_node:
-                ## scelgo il nodo a cui connettermi in modo random 
-                i = random.choice(common.connectednodes)
-                tot = totaldegree()
-                ## calcolo la probabilità di connettermi al nodo scelto
-                ## probabilità = grado del nodo scelto / grado totale 
-                common.prob =  common.g.degree[i] / tot
-                if random.random() < common.prob and i not in my_neighbors:
-                    ## creo il link tra i due nodi 
-                    # gvf.createEdge(self, i)
-                    gvf.createEdge(i, self)
-                    common.connectednodes.append(i)
-                    my_neighbors.append(i)
-                    link_formed += 1
-            common.connectednodes.append(self)
-        common.PA_done = True 
-        return      
     
         
     ## funzione che crea la news 
     def create_news(self):
         random.seed()
         # common.news_creator = random.randint(1, common.total_number_of_nodes)
-        if self.number == common.news_creator:
+        if self.number in common.news_creator:
+        # if self.number == common.news_creator:
             ## assegno lo score della notizia in base allo score dell'agente 
             score = self.score
             ## aggiungo le feature della news al dizionario che contiene tutte le news 
@@ -149,8 +108,9 @@ class Agent(SuperAgent):
                                 "autore" : self,
                                 "score" : self.score,
                                 "id autore" : self.number,
-                                "agent type" : self.agType})    
-            print("Agent ", self.number," creating news ",common.new_news_id," with score ", score)
+                                "agent type" : self.agType,
+                                "retweet" : 0})    
+            print("Agent ", self.number," of type ", self.agType," creating news ", common.new_news_id," with score ", score)
             
             send_news(self, common.new_news_id)
             common.new_news_id += 1 
@@ -164,14 +124,15 @@ class Agent(SuperAgent):
     ## interazione human-human come quella bot-human     
     def bot_create_news(self):
         random.seed()
-        score = random.uniform(0, 0.1)
+        score = self.score
         ## aggiungo le feature della news al dizionario che contiene tutte le news 
         common.news.append({"id" : common.new_news_id , 
                             "autore" : self,
                             "score" : self.score,
                             "id autore" : self.number,
-                            "agent type" : self.agType})    
-        print("Agent ", self.number," creating news ",common.new_news_id," with score ", score)
+                            "agent type" : self.agType,
+                            "retweet" : 0})    
+        print("Agent ", self.number," of type ", self.agType, " creating news ",common.new_news_id," with score ", score)
         
         send_news(self, common.new_news_id)
         common.new_news_id += 1
@@ -199,8 +160,8 @@ class Agent(SuperAgent):
                     if autore != self and i not in self.news_integrate:
                         ## le integro se lo score della news è abbastanza vicino al mio score 
                         if abs(self.score - news_score) < random.random():
-                            print("News ", i, " with score ", news_score," tweeted by ", 
-                                  autore.number," has been retweeted by agent ", self.number  )
+                            # print("News ", i, " with score ", news_score," tweeted by ", 
+                                  # autore.number," has been retweeted by agent ", self.number  )
                             ## aggiungo l'id della news tra le news integrate
                             self.news_integrate.append(i)
                             ## se integro la news allora modifico il mio score a seconda 
@@ -208,9 +169,11 @@ class Agent(SuperAgent):
                             # self.score = self.score + ((news_score - 0.5) / 100 )
                             ## mando la notizia ai miei follower
                             send_news(self, i)
+                            ## uppo il contatore dei retweet
+                            news["retweet"] += 1
                             ## creo un link con l'autore della news
                             # gvf.createEdge(self, autore)
-                            gvf.createEdge(autore, self)
+                            gvf.createEdge(autore.number, self.number)
                             ## aumento il contatore delle news ricevute 
                             self.counter_news_ricevute += 1
         ## pulisco la lista delle news da integrare 
@@ -235,8 +198,8 @@ class Agent(SuperAgent):
                     if autore != self and i not in self.news_integrate:
                         ## le integro se lo score della news è abbastanza vicino al mio score 
                         if news_score <= 0.1:
-                            print("News ", i, " with score ", news_score," tweeted by ", 
-                                  autore.number," has been retweeted by agent ", self.number  )
+                            # print("News ", i, " with score ", news_score," tweeted by ", 
+                            #       autore.number," has been retweeted by agent ", self.number  )
                             ## aggiungo l'id della news tra le news integrate
                             self.news_integrate.append(i)
                             ## se integro la news allora modifico il mio score a seconda 
@@ -244,6 +207,8 @@ class Agent(SuperAgent):
                             # self.score = self.score + ((news_score - 0.5) / 100 )
                             ## mando la notizia ai miei follower
                             send_news(self, i)
+                            ## uppo il contatore dei retweet
+                            news["retweet"] += 1
                             ## creo un link con l'autore della news
                             # gvf.createEdge(self, autore)
                             gvf.createEdge(autore, self)
@@ -266,22 +231,26 @@ def totaldegree(): ## funziona
 
 ## funzione che serve per inviare la news 
 def send_news(self, news_to_send):
-    done = False ## serve per controllare se il nodo ha dei predecessors o no 
+    done = False ## serve per controllare se il nodo ha dei neighbors o no 
     try:
         ## seleziono i destinatari della news =  i miei follower 
-        # for i in common.g.predecessors(self):
-        for i in common.g.neighbors(self):
-            print("Sending news to  ", i.number)
+        my_id = common.g.GetNI(self.number)
+        # print("ID ", my_id)
+        for node in my_id.GetOutEdges():
+            # print("Sending news to  ", node)
             ## aggiungo l'id della news alla lista delle news ricevute del mio follower
-            i.news_ricevute.append(news_to_send)   
+            ## devo accedere all'oggetto con id node
+            receiver = common.agents[node]
+            # print("receiver ", receiver)
+            # receiver.news_ricevute.append(news_to_send)   
             ## aggiungo l'id della news alla lista delle news da integrare del mio follower
-            i.news_da_integrare.append(news_to_send)   
+            receiver.news_da_integrare.append(news_to_send)   
             done = True 
             
         ## se il nodo selezionato non ha follower, allora sceglie un nodo a caso e la manda a lui        
         if not done:
             i = random.choice(common.orderedListOfNodes)
-            print("Sending news to  ", i.number)
+            # print("Sending news to  ", i.number)
             ## aggiungo l'id della news alla lista delle news ricevute dal destinatario
             i.news_ricevute.append(news_to_send)
             ## aggiungo l'id della news alla lista delle news da integrare del mio follower

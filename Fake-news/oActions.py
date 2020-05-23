@@ -17,7 +17,7 @@ def do1b(address):
     # print "oActions before drawGraph nodes", common.g.nodes()
 
     # basic action to visualize the networkX output
-    gvf.openClearNetworkXdisplay()
+    gvf.openCleardisplay()
     gvf.drawGraph()
 
 
@@ -55,4 +55,8 @@ def otherSubSteps(subStep, address):
     if subStep == "pause":
         input("Hit enter key to continue")
         return True
+    
+    if subStep == "random":
+            common.news_creator = random.randint(1, common.total_number_of_nodes)   
+            return
 

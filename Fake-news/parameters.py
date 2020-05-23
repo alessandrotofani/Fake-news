@@ -2,24 +2,15 @@
 from Tools import *
 import commonVar as common
 
-import networkx as nx
 import matplotlib as mplt
 
 
-## caricai parametri del modello
+## carica i parametri del modello
 ## quando eseguo il programma, viene eseguita questa funzione che chiede
 ## all'utente di inserire i valori richiesti 
 def loadParameters(self):
 
-    print("NetworkX version %s running" % nx.__version__)
     print("Matplotlib version %s running\n" % mplt.__version__)
-
-    nxv = nx.__version__
-    vOK = checkVersion(nxv, 'NetworkX', 1, 9, 1)
-
-    if not vOK:
-        print("NetworkX 1.9.1 or greater required")
-        os.sys.exit(1)
 
     mpltv = mplt.__version__
     vOK = checkVersion(mpltv, 'Matplotlib', 1, 5, 1)

@@ -5,18 +5,29 @@ import math
 
 ## NODE SECTION
 ## numero totale di nodi nel network
-total_number_of_nodes = 100
+total_number_of_nodes = 10000
 users = 0.96 * total_number_of_nodes
 number_of_users = math.floor(users)
+number_of_left_broadcasters = 4
 number_of_bots = total_number_of_nodes - number_of_users
+fake_news_users = 0.01 * number_of_users
+bias_right_users = 0.07 * number_of_users
+right_users = 0.10 * number_of_users
+right_leaning_users = 0.06 * number_of_users
+center_users = 0.24 * number_of_users
+left_leaning_users = 0.30 * number_of_users
+left_users = 0.16 * number_of_users
+bias_left_users = 0.02 * number_of_users
 
-links_per_node = 3 ## è il numero di link che ogni nodo formerà 
+links_per_node = 1 ## è il numero di link che ogni nodo formerà 
 orderedListOfNodes = []
+agents = {}
 connectednodes= [] ## lista con i nodi che hanno grado diverso da zero 
 nodesdegree = [] ## lista che contiene i gradi dei nodi
 
 
 ## GRAPH SECTION
+h = 0
 g = 0  # this variable will contain the address of the graph
 g_labels = 0  # this variable will contain the address of the labels
 g_edge_labels = 0  # this variable will contain the address of the labels of the edges
@@ -24,18 +35,21 @@ g_edge_labels = 0  # this variable will contain the address of the labels of the
 width = 20
 height = 30
 colordict = {} ## dzionario che contiene (nodo : colore)
+start = True ## bool che mi serve per salvare il network iniziale e finale 
 
 ##NEWS SECTION
 news = []
-news_creator = random.randint(1, total_number_of_nodes) ## id dell'autore della news 
+# news_creator = random.randint(1, total_number_of_nodes) ## id dell'autore della news 
+news_creator = random.sample(range(4, number_of_users), 3) ## lista con l'id dell'autore della news 
 ## lo uppo in drawGraph() ## probabilmente non è la cosa più elegante da fare 
 new_news_id = 0 ## contatore che mi dice quante news ho creato fino ad ora,
 ## servirà per assegnare l'id delle news create 
 
+
 ## BOOL SECTION
 everything_done = True
 scale_free_test = True ## dice se lo scale free test deve essere fatto o no 
-PA_done = False ## mi dice se ho finito il preferential attachment
+PA_done = True ## mi dice se ho finito il preferential attachment
 analysis = True 
 verbose = False
 
