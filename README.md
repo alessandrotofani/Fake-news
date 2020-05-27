@@ -57,5 +57,9 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 ## Useful links
 [md file cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
+
+## Online
+[Binder](https://mybinder.org/v2/gh/alessandrotofani/Fake-news/snap?filepath=iRunShellOnline.ipynb)
+
 ## Un'altra immagine su Trump, why not?
 ![alt text](https://images.axios.com/YWMPTIF_Za_LAeU4cHUJwxe1R0M=/1920x1080/smart/2017/12/15/1513303959471.png)
