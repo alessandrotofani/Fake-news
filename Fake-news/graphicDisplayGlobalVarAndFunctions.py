@@ -15,7 +15,9 @@ def createGraph():
     global colors, pos
 
     ## creo il grafo, assegnandolo alla variabile g definita in commonVar.py 
-    common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 2)  
+    # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 2)  
+    Rnd = snap.TRnd()
+    common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 2, True, Rnd)  
     common.g = snap.ConvertGraph(snap.PNGraph, common.h)
     # for EI in common.g.Edges():
     #     print("edge: (%d, %d)" % (EI.GetSrcNId(), EI.GetDstNId()))
