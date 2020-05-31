@@ -17,6 +17,7 @@ def createGraph():
     ## creo il grafo, assegnandolo alla variabile g definita in commonVar.py 
     # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 2)  
     Rnd = snap.TRnd()
+    Rnd.Randomize()
     common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 3, True, Rnd)  
     common.g = snap.ConvertGraph(snap.PNGraph, common.h)
     # for EI in common.g.Edges():
