@@ -18,8 +18,9 @@ def createGraph():
     # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 2)  
     Rnd = snap.TRnd()
     Rnd.Randomize()
-    common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 3, True, Rnd)  
-    common.g = snap.ConvertGraph(snap.PNGraph, common.h)
+    # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 3, True, Rnd)  
+    # common.g = snap.ConvertGraph(snap.PNGraph, common.h)
+    common.g = snap.GenForestFire(common.total_number_of_nodes, 0.37, 0.32) ## 0.37, 0.32
     # for EI in common.g.Edges():
     #     print("edge: (%d, %d)" % (EI.GetSrcNId(), EI.GetDstNId()))
     print(" Network created")
