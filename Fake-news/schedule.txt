@@ -1,0 +1,196 @@
+# 1
+# 2
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+voters integrate_news
+left_broadcasters integrate_news
+right_bots bot_integrate_news
+left_bots bot_integrate_news
+breitbart bot_integrate_news
+# 3
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+voters dictionary
+# 4
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 5
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 6
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 7
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 8
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 9
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 10
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 11
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 12
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 13
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 14
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 15
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 16
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 17
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 18
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 19
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news
+# 20
+voters create_news
+left_broadcasters create_news
+left_bots 0.001 bot_create_news
+right_bots 0.001 bot_create_news
+breitbart bot_create_news

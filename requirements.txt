@@ -1,0 +1,11 @@
+xlrd
+numpy
+matplotlib
+networkx
+pandas
+scipy
+statsmodels
+patsy
+requests
+snap-stanford
+graphviz
