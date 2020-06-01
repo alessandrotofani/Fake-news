@@ -20,7 +20,8 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 ### Fase 1: costruzione della rete ... completata
 - Costruire i nodi ... done
 - Implementare il preferential attachment ... done
-- [Barabasi-Albert model](https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model)
+- [Forest Fire](https://arxiv.org/pdf/physics/0603229.pdf)
+- [Forest Fire Algorithm](http://snap.stanford.edu/snappy/doc/reference/GenForestFire.html)
 - [Modello](https://ccl.northwestern.edu/netlogo/models/PreferentialAttachment) in Netlogo
 
 ### Fase 2: costruzione degli agenti 
@@ -53,13 +54,11 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 [Clustering](https://github.com/micheletizzoni/Complexity-in-social-systems/blob/master/2-networkx/nb05_network_analysis.ipynb)
 //[Barabasi power law fitting](https://barabasi.com/f/623.pdf) vedere pagina 44. 
 
+## Run it online
+[First try](https://mybinder.org/v2/gh/alessandrotofani/Fake-news/online?filepath=iRunShellOnline.ipynb)
 
 ## Useful links
 [md file cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-
-
-## Online
-[Binder](https://mybinder.org/v2/gh/alessandrotofani/Fake-news/snap?filepath=iRunShellOnline.ipynb)
 
 ## Un'altra immagine su Trump, why not?
 ![alt text](https://images.axios.com/YWMPTIF_Za_LAeU4cHUJwxe1R0M=/1920x1080/smart/2017/12/15/1513303959471.png)
