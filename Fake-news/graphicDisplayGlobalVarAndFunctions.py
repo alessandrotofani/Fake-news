@@ -16,8 +16,8 @@ def createGraph():
 
     ## creo il grafo, assegnandolo alla variabile g definita in commonVar.py 
     # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 2)  
-    Rnd = snap.TRnd()
-    Rnd.Randomize()
+    # Rnd = snap.TRnd()
+    # Rnd.Randomize()
     # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 3, True, Rnd)  
     # common.g = snap.ConvertGraph(snap.PNGraph, common.h)
     common.g = snap.GenForestFire(common.total_number_of_nodes, 0.37, 0.32) ## 0.37, 0.32
