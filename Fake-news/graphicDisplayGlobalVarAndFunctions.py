@@ -16,10 +16,11 @@ def createGraph():
 
     ## creo il grafo, assegnandolo alla variabile g definita in commonVar.py 
     # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 2)  
-    # Rnd = snap.TRnd()
-    # Rnd.Randomize()
+    Rnd = snap.TRnd()
+    Rnd.Randomize()
     # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 3, True, Rnd)  
     # common.g = snap.ConvertGraph(snap.PNGraph, common.h)
+    ## http://snap.stanford.edu/snappy/doc/reference/GenForestFire.html
     common.g = snap.GenForestFire(common.total_number_of_nodes, 0.37, 0.32) ## 0.37, 0.32
     # for EI in common.g.Edges():
     #     print("edge: (%d, %d)" % (EI.GetSrcNId(), EI.GetDstNId()))
@@ -65,14 +66,32 @@ def getGraph():
         return common.g
     except BaseException:
         return 0
-
+    
+def choose_news_creator(lista, n):
+    i = 0 
+    while i < n:
+        common.news_creator.append(random.choice(lista))
+        i += 1         
+    return
 
 
 ## funzione che crea il grafo 
 def drawGraph():
 
     # common.news_creator = random.randint(1, common.number_of_users)  
-    common.news_creator = random.sample(range(4, common.number_of_users), 3)
+    # common.news_creator = random.sample(range(4, common.number_of_users), 3)  ## random.sample(range(int_min,int_max), numeri da estrarre)   
+
+    del common.news_creator[:] 
+    
+    choose_news_creator(common.fake_news_users_list, common.n_fake)
+    choose_news_creator(common.bias_right_users_list, common.n_biasright)
+    choose_news_creator(common.right_users_list, common.n_right)
+    choose_news_creator(common.right_leaning_users_list, common.n_right_leaning)
+    choose_news_creator(common.center_users_list, common.n_center)
+    choose_news_creator(common.left_leaning_users_list, common.n_leftleaning)
+    choose_news_creator(common.left_users_list, common.n_left)
+    choose_news_creator(common.bias_left_users_list, common.n_left)
+
     cleardisplay()
     ## coloro i nodi a seconda dello score 
     # https://snap.stanford.edu/snappy/doc/reference/DrawGViz.html

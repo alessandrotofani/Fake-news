@@ -28,6 +28,15 @@ class Agent(SuperAgent):
         self.agType = agType
         ## assegno lo score a ciuscun agente in modo random 
         self.score = random.random()
+        
+        self.fake_news = False
+        self.bias_right = False
+        self.right = False
+        self.right_leaning = False
+        self.center = False
+        self.left_leaning = False
+        self.left = False
+        self.bias_left = False
 
 
         if self.agType == "left_broadcasters":
@@ -37,20 +46,36 @@ class Agent(SuperAgent):
         if self.agType == "voters":
             if self.number >= (common.number_of_left_broadcasters - 1) and self.number < ( common.number_of_left_broadcasters + common.fake_news_users ):
                 self.score = random.uniform(0 , 0.1)
+                self.fake_news = True
+                common.fake_news_users_list.append(self)
             if self.number >= ( common.number_of_left_broadcasters + common.fake_news_users - 1 ) and self.number < ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users ):
                 self.score = random.uniform(0.1 , 0.2)
+                self.bias_right = True
+                common.bias_right_users_list.append(self)
             if self.number >= ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users - 1 ) and self.number < ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users + common.right_users ):
                 self.score = random.uniform(0.2 , 0.3)
+                self.right = True
+                common.right_users_list.append(self)
             if self.number >= ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users + common.right_users - 1 ) and self.number < ( common.number_of_left_broadcasters + common.right_leaning_users + common.fake_news_users + common.bias_right_users + common.right_users ):
                 self.score = random.uniform(0.3 , 0.45)
+                self.right_leaning = True
+                common.right_leaning_users_list.append(self)
             if self.number >= ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users + common.right_users + common.right_leaning_users - 1 ) and self.number < ( common.number_of_left_broadcasters + common.right_leaning_users + common.fake_news_users + common.bias_right_users + common.right_users + common.center_users ):
                 self.score = random.uniform(0.45 , 0.55)
+                self.center = True
+                common.center_users_list.append(self)
             if self.number >= ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users + common.right_users + common.right_leaning_users + common.center_users - 1 ) and self.number < ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users + common.right_users + common.right_leaning_users + common.center_users + common.left_leaning_users ):
                 self.score = random.uniform(0.55 , 0.7)
+                self.left_leaning = True
+                common.left_leaning_users_list.append(self)
             if self.number >= ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users + common.right_users + common.right_leaning_users + common.center_users + common.left_leaning_users - 1 ) and self.number < ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users + common.right_users + common.right_leaning_users + common.center_users + common.left_leaning_users + common.left_users ):
                 self.score = random.uniform(0.7 , 0.8)
+                self.left = True
+                common.left_users_list.append(self)
             if self.number >= ( common.number_of_left_broadcasters + common.fake_news_users + common.bias_right_users + common.right_users + common.right_leaning_users + common.center_users + common.left_leaning_users + common.left_users - 1 ):
                 self.score = random.uniform(0.8 , 0.9)
+                self.bias_left = True
+                common.bias_left_users_list.append(self)
                 
         if self.agType == "right_bots":
             self.score = random.uniform(0, 0.1)
@@ -99,7 +124,8 @@ class Agent(SuperAgent):
     def create_news(self):
         random.seed()
         # common.news_creator = random.randint(1, common.total_number_of_nodes)
-        if self.number in common.news_creator:
+        # if self.number in common.news_creator:
+        if self in common.news_creator:
         # if self.number == common.news_creator:
             ## assegno lo score della notizia in base allo score dell'agente 
             score = self.score
