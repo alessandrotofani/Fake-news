@@ -2,3 +2,7 @@
 *.pyc
 *.pyc
 *.pyc
+*.pyc
+project.txt
+$$slapp$$/__pycache__/ActionGroup.cpython-37.pyc
+*.dot
