@@ -59,9 +59,9 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 [Binder](https://mybinder.org/v2/gh/alessandrotofani/Fake-news/snap?filepath=iRunShellOnline.ipynb)
 
 ## Useful links
-[Regole della dinamica](https://docs.google.com/document/d/1kIeEAsEj68Kzrlez-EyenRuGMm5y2Hc0zdkFIFzppUE/edit?usp=sharing)
-[Proporzioni](https://docs.google.com/spreadsheets/d/12tik2m_w-y7LoZE5tSWOoTFDNzIT6hjsoO4Oaqabnoc/edit#gid=0)
-[md file cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- [Regole della dinamica](https://docs.google.com/document/d/1kIeEAsEj68Kzrlez-EyenRuGMm5y2Hc0zdkFIFzppUE/edit?usp=sharing)
+- [Proporzioni](https://docs.google.com/spreadsheets/d/12tik2m_w-y7LoZE5tSWOoTFDNzIT6hjsoO4Oaqabnoc/edit#gid=0)
+- [md file cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
 ## Un'altra immagine su Trump, why not?
 ![alt text](https://images.axios.com/YWMPTIF_Za_LAeU4cHUJwxe1R0M=/1920x1080/smart/2017/12/15/1513303959471.png)
