@@ -44,6 +44,7 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
   - Creazione bot ... done 
   - Meccanismi di interazione bot ... done
   - Creare gli agenti (con i diversi score) rispettando le [proporzioni](https://docs.google.com/spreadsheets/d/12tik2m_w-y7LoZE5tSWOoTFDNzIT6hjsoO4Oaqabnoc/edit#gid=0) indicate in tabella
+  - Frequenza di creazione delle news rispettando le proporzioni ... done
 
 ### Fase 5: analisi dati 
 - Impostare l'analisi dati: conviene scrivere i dati in un file separato 
