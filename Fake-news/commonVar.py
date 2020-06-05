@@ -13,28 +13,44 @@ number_of_bots = total_number_of_nodes - number_of_users
 
 fake_news_users = 0.01 * number_of_users
 fake_news_users_list = []
-n_fake = 5
+# n_fake = 5
+n_fake = 2
+
 bias_right_users = 0.07 * number_of_users
 bias_right_users_list = []
-n_biasright = 5
+# n_biasright = 5
+n_biasright = 2
+
 right_users = 0.10 * number_of_users
 right_users_list = []
-n_right = 3
+# n_right = 3
+n_right = 1
+
 right_leaning_users = 0.06 * number_of_users
 right_leaning_users_list = []
+# n_right_leaning = 1
 n_right_leaning = 1
+
 center_users = 0.24 * number_of_users
 center_users_list = []
-n_center = 2
+# n_center = 2
+n_center = 1
+
 left_leaning_users = 0.30 * number_of_users
 left_leaning_users_list = []
-n_leftleaning = 2
+# n_leftleaning = 2
+n_leftleaning = 1
+
 left_users = 0.16 * number_of_users
 left_users_list = []
-n_left = 2
+# n_left = 2
+n_left = 1
+
 bias_left_users = 0.02 * number_of_users
 bias_left_users_list = []
-n_left = 2
+# n_left = 2
+n_left = 1
+
 links_per_node = 1 ## è il numero di link che ogni nodo formerà 
 orderedListOfNodes = []
 agents = {}

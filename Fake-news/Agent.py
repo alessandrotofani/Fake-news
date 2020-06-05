@@ -244,7 +244,11 @@ class Agent(SuperAgent):
         del self.news_da_integrare[:]        
         return   
     
-    
+    def dictionary(self):
+        common.all_parameters.append({"id_autore" : self.number,
+                                      "agent_type" : self.agType,
+                                      "score" : self.score})
+        return    
     
     
 ## calcola la somma dei degree di tutti i nodi 
