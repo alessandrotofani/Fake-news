@@ -60,3 +60,10 @@ def otherSubSteps(subStep, address):
             common.news_creator = random.randint(1, common.total_number_of_nodes)   
             return
 
+
+##funzione per salvare i dati che va a prendere il dizionario creato
+##alla fine della schedule e definito nel file Agent.py
+def saveData():
+
+    dataset = pd.DataFrame.from_dict(common.all_parameters)
+    dataset.to_csv("data.csv", index=False)
