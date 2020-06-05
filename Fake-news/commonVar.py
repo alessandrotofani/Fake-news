@@ -98,4 +98,6 @@ prune = False
 pruneThreshold = 0
 prova = 0
 
-
+##ToBeExecuted ci permette di eseguire un metodo dell'observer alla fine
+##della simulazione. In questo caso la funzione saveData()
+toBeExecuted = "saveData()"
