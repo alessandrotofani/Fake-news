@@ -5,7 +5,7 @@ import math
 
 ## NODE SECTION
 ## numero totale di nodi nel network
-total_number_of_nodes = 10000
+total_number_of_nodes = 100000
 users = 0.96 * total_number_of_nodes
 number_of_users = math.floor(users)
 number_of_left_broadcasters = 4
