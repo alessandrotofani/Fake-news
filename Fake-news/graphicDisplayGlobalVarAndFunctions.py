@@ -21,7 +21,12 @@ def createGraph():
     # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 3, True, Rnd)  
     # common.g = snap.ConvertGraph(snap.PNGraph, common.h)
     ## http://snap.stanford.edu/snappy/doc/reference/GenForestFire.html
-    common.g = snap.GenForestFire(common.total_number_of_nodes, 0.37, 0.32) ## 0.37, 0.32
+    ## 0.5,0.18 va alla grande (50 cicli)
+    forward = 0.5## provare con 0.51,0.16
+    backward = 0.18 ## anche 0.16
+    common.g = snap.GenForestFire(common.total_number_of_nodes, forward, backward) ## 0.37, 0.32
+    print("Forward burning probability: ", forward) 
+    print("Backward burning probability: ", backward) 
     # for EI in common.g.Edges():
     #     print("edge: (%d, %d)" % (EI.GetSrcNId(), EI.GetDstNId()))
     print(" Network created")

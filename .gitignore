@@ -6,3 +6,4 @@
 project.txt
 $$slapp$$/__pycache__/ActionGroup.cpython-37.pyc
 *.dot
+data.csv
