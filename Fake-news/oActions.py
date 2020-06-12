@@ -68,3 +68,5 @@ def saveData():
 
     dataset = pd.DataFrame.from_dict(common.all_parameters)
     dataset.to_csv("data.csv", index=False)
+    dataset_init = pd.DataFrame.from_dict(common.inizial_parameters)
+    dataset_init.to_csv("data_init.csv", index=False)

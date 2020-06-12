@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import commonVar as common
 import numpy as np
+import pandas as pd
 import snap 
 import random 
 import graphviz

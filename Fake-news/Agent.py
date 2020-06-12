@@ -103,8 +103,6 @@ class Agent(SuperAgent):
         ## lista che contiene l'd news che l'agente ha integrato, cioè i suoi belief 
         self.news_integrate = []
         
-        
-        
         # the graph
         if gvf.getGraph() == 0:
             gvf.createGraph()
@@ -200,7 +198,7 @@ class Agent(SuperAgent):
                             news["retweet"] += 1
                             ## creo un link con l'autore della news
                             # gvf.createEdge(self, autore)
-                            gvf.createEdge(autore.number, self.number)
+                            gvf.createEdge(self.number, autore.number)
                             ## aumento il contatore delle news ricevute 
                             self.counter_news_ricevute += 1
         ## pulisco la lista delle news da integrare 
@@ -238,7 +236,7 @@ class Agent(SuperAgent):
                             news["retweet"] += 1
                             ## creo un link con l'autore della news
                             # gvf.createEdge(self, autore)
-                            gvf.createEdge(autore, self)
+                            gvf.createEdge(self, autore)
                             ## aumento il contatore delle news ricevute 
                             self.counter_news_ricevute += 1
         ## pulisco la lista delle news da integrare 
@@ -251,7 +249,12 @@ class Agent(SuperAgent):
                                       "score" : self.score})
         return    
     
-    
+    def dictionary_init(self):
+        common.inizial_parameters.append({"id_autore" : self.number,
+                                      "agent_type" : self.agType,
+                                      "score" : self.score})
+        return
+
 ## calcola la somma dei degree di tutti i nodi 
 def totaldegree(): ## funziona 
     totaldegree = 0

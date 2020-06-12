@@ -57,6 +57,7 @@ agents = {}
 connectednodes= [] ## lista con i nodi che hanno grado diverso da zero 
 nodesdegree = [] ## lista che contiene i gradi dei nodi
 all_parameters = []
+inizial_parameters = []
 
 ## GRAPH SECTION
 h = 0
