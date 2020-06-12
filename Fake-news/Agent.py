@@ -45,6 +45,7 @@ class Agent(SuperAgent):
             
         ## assegno lo score in base alle proporzioni di users
         if self.agType == "voters":
+            common.voters_list.append(self)
             if self.number >= (common.number_of_left_broadcasters - 1) and self.number < ( common.number_of_left_broadcasters + common.fake_news_users ):
                 self.score = random.uniform(0 , 0.1)
                 self.fake_news = True
@@ -203,8 +204,9 @@ class Agent(SuperAgent):
                             self.counter_news_ricevute += 1
         ## pulisco la lista delle news da integrare 
         del self.news_da_integrare[:]        
-        return   
-    
+        return
+
+
     ## funzione per integrare la news che arriva al bot
     ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
     def bot_integrate_news(self):

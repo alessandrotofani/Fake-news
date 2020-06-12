@@ -57,9 +57,57 @@ def otherSubSteps(subStep, address):
         input("Hit enter key to continue")
         return True
     
-    if subStep == "random":
-            common.news_creator = random.randint(1, common.total_number_of_nodes)   
-            return
+    elif subStep == "random":
+        common.news_creator = random.randint(1, common.total_number_of_nodes)   
+        return True
+    elif subStep == "restart":
+        del common.fake_news_users_list[:]        
+        del common.bias_right_users_list[:]        
+        del common.right_users_list[:]        
+        del common.right_leaning_users_list[:]        
+        del common.center_users_list[:]        
+        del common.left_leaning_users_list[:]        
+        del common.left_users_list[:]        
+        del common.bias_left_users_list[:]
+        return True
+
+    elif subStep == "check":
+        for i in common.voters_list:
+            i.fake_news = False
+            i.bias_right = False
+            i.right = False
+            i.right_leaning = False 
+            i.center = False
+            i.left_leaning = False
+            i.left = False
+            i.bias_left = False
+            if i.score < 0.1:
+                i.fake_news = True
+                common.fake_news_users_list.append(i)
+            if i.score >=0.1 and i.score < 0.2:
+                i.bias_right = True
+                common.bias_right_users_list.append(i)
+            if i.score >= 0.2 and i.score < 0.3:               
+                i.right = True
+                common.right_users_list.append(i)
+            if i.score >= 0.3 and i.score < 0.45:
+                i.right_leaning = True
+                common.right_leaning_users_list.append(i)
+            if i.score >= 0.45 and i.score < 0.55:
+                i.center = True
+                common.center_users_list.append(i)
+            if i.score >= 0.55 and i.score < 0.7:
+                i.left_leaning = True
+                common.left_leaning_users_list.append(i)
+            if i.score >= 0.7 and i.score < 0.8:
+                i.left = True
+                common.left_users_list.append(i)
+            if i.score >= 0.8:
+                i.bias_left = True
+                common.bias_left_users_list.append(i)
+
+        return True
+            
 
 
 ##funzione per salvare i dati che va a prendere il dizionario creato

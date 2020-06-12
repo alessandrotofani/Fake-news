@@ -1,1 +1,2 @@
-modelStep visualizeNet clock
+modelStep visualizeNet restart check clock 
+ 

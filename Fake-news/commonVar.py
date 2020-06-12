@@ -53,6 +53,7 @@ n_left = 1
 
 links_per_node = 1 ## è il numero di link che ogni nodo formerà 
 orderedListOfNodes = []
+voters_list = []
 agents = {}
 connectednodes= [] ## lista con i nodi che hanno grado diverso da zero 
 nodesdegree = [] ## lista che contiene i gradi dei nodi
