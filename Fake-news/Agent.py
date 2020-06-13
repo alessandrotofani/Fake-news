@@ -115,7 +115,7 @@ class Agent(SuperAgent):
 
 
     def getGraph(self):
-        return common.g
+        return common.follower
         
 
     
@@ -123,10 +123,7 @@ class Agent(SuperAgent):
     ## funzione che crea la news 
     def create_news(self):
         random.seed()
-        # common.news_creator = random.randint(1, common.total_number_of_nodes)
-        # if self.number in common.news_creator:
         if self in common.news_creator:
-        # if self.number == common.news_creator:
             ## assegno lo score della notizia in base allo score dell'agente 
             score = self.score
             ## aggiungo le feature della news al dizionario che contiene tutte le news 
@@ -186,8 +183,6 @@ class Agent(SuperAgent):
                     if autore != self and i not in self.news_integrate:
                         ## le integro se lo score della news è abbastanza vicino al mio score 
                         if abs(self.score - news_score) < random.random():
-                            # print("News ", i, " with score ", news_score," tweeted by ", 
-                                  # autore.number," has been retweeted by agent ", self.number  )
                             ## aggiungo l'id della news tra le news integrate
                             self.news_integrate.append(i)
                             ## se integro la news allora modifico il mio score a seconda 
@@ -197,9 +192,8 @@ class Agent(SuperAgent):
                             send_news(self, i)
                             ## uppo il contatore dei retweet
                             news["retweet"] += 1
-                            ## creo un link con l'autore della news
-                            # gvf.createEdge(self, autore)
-                            gvf.createEdge(self.number, autore.number)
+                            ## creo il link   autore news -> self
+                            gvf.createEdge(autore.number, self.number)
                             ## aumento il contatore delle news ricevute 
                             self.counter_news_ricevute += 1
         ## pulisco la lista delle news da integrare 
@@ -238,7 +232,7 @@ class Agent(SuperAgent):
                             news["retweet"] += 1
                             ## creo un link con l'autore della news
                             # gvf.createEdge(self, autore)
-                            gvf.createEdge(self, autore)
+                            gvf.createEdge(autore.number, self.number)
                             ## aumento il contatore delle news ricevute 
                             self.counter_news_ricevute += 1
         ## pulisco la lista delle news da integrare 
@@ -261,7 +255,7 @@ class Agent(SuperAgent):
 def totaldegree(): ## funziona 
     totaldegree = 0
     for i in common.orderedListOfNodes:
-        totaldegree += common.g.degree[i]   
+        totaldegree += common.follower.degree[i]   
     return totaldegree  
 
 
@@ -270,8 +264,7 @@ def send_news(self, news_to_send):
     done = False ## serve per controllare se il nodo ha dei neighbors o no 
     try:
         ## seleziono i destinatari della news =  i miei follower 
-        my_id = common.g.GetNI(self.number)
-        # print("ID ", my_id)
+        my_id = common.follower.GetNI(self.number)
         for node in my_id.GetOutEdges():
             # print("Sending news to  ", node)
             ## aggiungo l'id della news alla lista delle news ricevute del mio follower
@@ -297,10 +290,3 @@ def send_news(self, news_to_send):
      
     return
 
-
-
-def modPosition():
-    if random.randint(0, 1) == 0:
-        return random.randint(-8, -6)
-    else:
-        return random.randint(6, 8)

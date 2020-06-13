@@ -11,6 +11,7 @@ number_of_users = math.floor(users)
 number_of_left_broadcasters = 4
 number_of_bots = total_number_of_nodes - number_of_users
 
+## divido i nodi a seconda delle proporzioni nel file proporzioni 
 fake_news_users = 0.01 * number_of_users
 fake_news_users_list = []
 # n_fake = 5
@@ -61,8 +62,8 @@ all_parameters = []
 inizial_parameters = []
 
 ## GRAPH SECTION
-h = 0
-g = 0  # this variable will contain the address of the graph
+information = 0 ## information network
+follower = 0  # this variable will contain the address of the graph
 g_labels = 0  # this variable will contain the address of the labels
 g_edge_labels = 0  # this variable will contain the address of the labels of the edges
 # size of the pictures

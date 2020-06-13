@@ -16,25 +16,24 @@ def createGraph():
     global colors, pos
 
     ## creo il grafo, assegnandolo alla variabile g definita in commonVar.py 
-    # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 2)  
     Rnd = snap.TRnd()
     Rnd.Randomize()
-    # common.h = snap.GenRndPowerLaw(common.total_number_of_nodes, 3, True, Rnd)  
-    # common.g = snap.ConvertGraph(snap.PNGraph, common.h)
     ## http://snap.stanford.edu/snappy/doc/reference/GenForestFire.html
-    ## 0.5,0.18 va alla grande (50 cicli)
-    forward = 0.5## provare con 0.51,0.16
-    backward = 0.18 ## anche 0.16
-    common.g = snap.GenForestFire(common.total_number_of_nodes, forward, backward) ## 0.37, 0.32
+    forward = 0.37 ## provare con 0.51,0.16
+    backward = 0.32 ## anche 0.16
+    ## follower network -> l'esponente dovrebbe essere circa 1.87
+    common.follower = snap.GenForestFire(common.total_number_of_nodes, forward, backward)
+    ## information network -> l'esponente dovrebbe essere circa 2.2
+    common.information = snap.TNGraph.New()
+    ## https://snap.stanford.edu/snappy/#types
+    for i in range(common.total_number_of_nodes):
+        if i == 0:
+            print("inserting nodes")
+        common.information.AddNode(i) ## aggiungo i nodi all'information network
     print("Forward burning probability: ", forward) 
     print("Backward burning probability: ", backward) 
-    # for EI in common.g.Edges():
-    #     print("edge: (%d, %d)" % (EI.GetSrcNId(), EI.GetDstNId()))
-    print(" Network created")
-    # colors = {}
-    # pos = {}
-    # common.g_labels = {}
-    # common.g_edge_labels = {}  # copy the address of the labels of the edges
+    print(" Networks created")
+
 
 
 ## https://networkx.github.io/documentation/stable/auto_examples/drawing/plot_weighted_graph.html
@@ -46,7 +45,10 @@ def createEdge(a, b):
         exit(0)
 
     try:
-        common.g.AddEdge(a,b)
+        common.information.AddEdge(a,b)
+        ## https://snap.stanford.edu/snappy/doc/reference/graphs.html
+        if not IsEdge(a,b):
+            common.follower.AddEdge(a,b)
         # print("edge created")
     except BaseException:
         return
@@ -69,7 +71,7 @@ def cleardisplay():
 
 def getGraph():
     try:
-        return common.g
+        return common.follower
     except BaseException:
         return 0
     
@@ -84,11 +86,9 @@ def choose_news_creator(lista, n):
 ## funzione che crea il grafo 
 def drawGraph():
 
-    # common.news_creator = random.randint(1, common.number_of_users)  
-    # common.news_creator = random.sample(range(4, common.number_of_users), 3)  ## random.sample(range(int_min,int_max), numeri da estrarre)   
-
+    ## pulisco la lista con i news creators
     del common.news_creator[:] 
-    
+    ## assegno i news creator riempiendo le rispettive liste 
     choose_news_creator(common.fake_news_users_list, common.n_fake)
     choose_news_creator(common.bias_right_users_list, common.n_biasright)
     choose_news_creator(common.right_users_list, common.n_right)
@@ -100,34 +100,27 @@ def drawGraph():
 
     cleardisplay()
     ## coloro i nodi a seconda dello score 
-    # https://snap.stanford.edu/snappy/doc/reference/DrawGViz.html
+    ## https://snap.stanford.edu/snappy/doc/reference/DrawGViz.html
     NIdColorH = snap.TIntStrH()
     for i in common.orderedListOfNodes:
         if i.score > 0.5:
             NIdColorH[i.number] = 'blue'
         if i.score <= 0.5:
             NIdColorH[i.number] = 'red'    
-            
+    ## hash table con le labels        
     labels = snap.TIntStrH()
-    for NI in common.g.Nodes():
+    for NI in common.follower.Nodes():
         labels[NI.GetId()] = str(NI.GetId())
     if common.PA_done:
-        # d = dict(common.g.degree) ## dizionario che contiene il grado dei nodi
-        ## disegno i nodi con grandezza proporizionale al proprio grado 
-        # print(" The network ")
-        ## https://snap.stanford.edu/snappy/doc/reference/DrawGViz.html
-        # snap.DrawGViz(common.g, snap.gvlDot, "output.png", " ", labels, NIdColorH) ## crea il file png output nella cartella snap, che è la rete
-        # snap.DrawGViz(common.g, snap.gvlDot, "out.png", " ", True, NIdColorH) ## crea il file png output nella cartella snap, che è la rete
-        # snap.SaveEdgeList(common.g, 'mygraph.txt')
+        ## salvo nel file .dot le net iniziali 
         if common.start: 
-            snap.SaveGViz(common.g, "network_iniziale.dot", "Directed Graph", True, NIdColorH)
-            common.start = False 
-        # path = 'C:/Users/Alessandro/snap/out.png'
-        # s = Source.from_file(path)
-        # s.view()    
-    # plt.show()      
+            snap.SaveGViz(common.follower, "follower_network_iniziale.dot", "Directed Graph", True, NIdColorH)
+            snap.SaveGViz(common.information, "information_network_iniziale.dot", "Directed Graph", True, NIdColorH)
+            common.start = False
+        ## salvo nel file .dot le net finali 
         if not common.start:
-            snap.SaveGViz(common.g, "network_finale.dot", "Directed Graph", True, NIdColorH)
+            snap.SaveGViz(common.follower, "follower_network_finale.dot", "Directed Graph", True, NIdColorH)
+            snap.SaveGViz(common.information, "information_network_finale.dot", "Directed Graph", True, NIdColorH)
             
     if common.graphicStatus == "PythonViaTerminal":
         plt.pause(0.01)

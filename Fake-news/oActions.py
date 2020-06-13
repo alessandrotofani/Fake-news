@@ -2,6 +2,7 @@ from Tools import *
 from Agent import *
 import graphicDisplayGlobalVarAndFunctions as gvf
 import pandas as pd
+import snap
 import commonVar as common
 
 
@@ -118,3 +119,4 @@ def saveData():
     dataset.to_csv("data.csv", index=False)
     dataset_init = pd.DataFrame.from_dict(common.inizial_parameters)
     dataset_init.to_csv("data_init.csv", index=False)
+    
