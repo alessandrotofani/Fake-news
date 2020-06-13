@@ -169,35 +169,75 @@ class Agent(SuperAgent):
     ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
     def integrate_news(self):
         random.seed()
+        try:
         # provo a integrare le news che mi sono appena arrivate
-        for i in self.news_da_integrare:
-            ## seleziono la news dal dictionary che le contiene tutte 
-            for news in common.news:
-                if news["id"] == i:
-                    ## estraggo le feature della news 
-                    news_score = news["score"]
-                    autore = news["autore"]
-                    ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
-                    ## controllo che io non sia l'autore della news
-                    ## controllo che non abbia già ricondiviso la news 
-                    if autore != self and i not in self.news_integrate:
-                        ## le integro se lo score della news è abbastanza vicino al mio score 
-                        if abs(self.score - news_score) < random.random():
+            for j in self.news_da_integrare:
+                if len(j) == 2:
+                    i = j[0]
+                    sender = j[1]
+                    ## seleziono la news dal dictionary che le contiene tutte 
+                    for news in common.news:
+                        if news["id"] == i:
+                        ## estraggo le feature della news 
+                            news_score = news["score"]
+                            autore = news["autore"]
+                        ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
+                        ## controllo che io non sia l'autore della news
+                        ## controllo che non abbia già ricondiviso la news 
+                            if autore != self and i not in self.news_integrate:
+                                ## le integro se lo score della news è abbastanza vicino al mio score 
+                                if abs(self.score - news_score) < random.random():
                             ## aggiungo l'id della news tra le news integrate
-                            self.news_integrate.append(i)
+                                    self.news_integrate.append(i)
                             ## se integro la news allora modifico il mio score a seconda 
                             ## dello score della news integrata 
-                            self.score = self.score + ((news_score - 0.5) / 100 )
+                                    self.score = self.score + ((news_score - 0.5) / 100 )
                             ## mando la notizia ai miei follower
-                            send_news(self, i)
+                                    send_news(self, i)
                             ## uppo il contatore dei retweet
-                            news["retweet"] += 1
+                                    news["retweet"] += 1
                             ## creo il link   autore news -> self
-                            gvf.createEdge(autore.number, self.number)
+                                    gvf.createEdge(autore.number, self.number)
+                                    gvf.createEdge(sender, self.number)
                             ## aumento il contatore delle news ricevute 
-                            self.counter_news_ricevute += 1
-        ## pulisco la lista delle news da integrare 
-        del self.news_da_integrare[:]        
+                                    self.counter_news_ricevute += 1
+
+
+                if len(j) == 1:
+                    i = j 
+            # provo a integrare le news che mi sono appena arrivate
+                ## seleziono la news dal dictionary che le contiene tutte 
+                    for news in common.news:
+                        if news["id"] == i:
+                        ## estraggo le feature della news 
+                            news_score = news["score"]
+                            autore = news["autore"]
+                        ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
+                        ## controllo che io non sia l'autore della news
+                        ## controllo che non abbia già ricondiviso la news 
+                            if autore != self and i not in self.news_integrate:
+                            ## le integro se lo score della news è abbastanza vicino al mio score 
+                                if abs(self.score - news_score) < random.random():
+                            ## aggiungo l'id della news tra le news integrate
+                                    self.news_integrate.append(i)
+                                ## se integro la news allora modifico il mio score a seconda 
+                            ## dello score della news integrata 
+                                    self.score = self.score + ((news_score - 0.5) / 100 )
+                                ## mando la notizia ai miei follower
+                                    send_news(self, i)
+                            ## uppo il contatore dei retweet
+                                    news["retweet"] += 1
+                            ## creo il link   autore news -> self
+                                    gvf.createEdge(autore.number, self.number)
+                            ## aumento il contatore delle news ricevute 
+                                    self.counter_news_ricevute += 1
+            
+        ## pulisco la lista delle news da integrare
+            del self.news_da_integrare[:]
+
+        except:
+            return
+        
         return
 
 
@@ -205,38 +245,80 @@ class Agent(SuperAgent):
     ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
     def bot_integrate_news(self):
         random.seed()
+        try:
         # provo a integrare le news che mi sono appena arrivate
-        for i in self.news_da_integrare:
+            for j in self.news_da_integrare:
+                if len(j) == 2:
+                    i = j[0]
+                    sender = j[1]
             ## seleziono la news dal dictionary che le contiene tutte 
-            for news in common.news:
-                if news["id"] == i:
+                    for news in common.news:
+                        if news["id"] == i:
                     ## estraggo le feature della news 
-                    news_score = news["score"]
-                    autore = news["autore"]
-                    ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
+                            news_score = news["score"]
+                            autore = news["autore"]
+                        ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
                     ## controllo che io non sia l'autore della news
                     ## controllo che non abbia già ricondiviso la news 
-                    if autore != self and i not in self.news_integrate:
+                            if autore != self and i not in self.news_integrate:
                         ## le integro se lo score della news è abbastanza vicino al mio score 
-                        if news_score <= 0.1:
+                                if news_score <= 0.1:
                             # print("News ", i, " with score ", news_score," tweeted by ", 
                             #       autore.number," has been retweeted by agent ", self.number  )
                             ## aggiungo l'id della news tra le news integrate
-                            self.news_integrate.append(i)
+                                    self.news_integrate.append(i)
                             ## se integro la news allora modifico il mio score a seconda 
                             # ## dello score della news integrata 
                             # self.score = self.score + ((news_score - 0.5) / 100 )
                             ## mando la notizia ai miei follower
-                            send_news(self, i)
+                                    send_news(self, i)
+                                    gvf.createEdge(sender, self.number)
                             ## uppo il contatore dei retweet
-                            news["retweet"] += 1
+                                    news["retweet"] += 1
                             ## creo un link con l'autore della news
                             # gvf.createEdge(self, autore)
-                            gvf.createEdge(autore.number, self.number)
+                                    gvf.createEdge(autore.number, self.number)
                             ## aumento il contatore delle news ricevute 
-                            self.counter_news_ricevute += 1
+                                    self.counter_news_ricevute += 1
+
+                if len(j) == 1:
+                    i = j
+            ## seleziono la news dal dictionary che le contiene tutte 
+                    for news in common.news:
+                        if news["id"] == i:
+                    ## estraggo le feature della news 
+                            news_score = news["score"]
+                            autore = news["autore"]
+                    ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
+                    ## controllo che io non sia l'autore della news
+                    ## controllo che non abbia già ricondiviso la news 
+                            if autore != self and i not in self.news_integrate:
+                        ## le integro se lo score della news è abbastanza vicino al mio score 
+                                if news_score <= 0.1:
+                                # print("News ", i, " with score ", news_score," tweeted by ", 
+                            #       autore.number," has been retweeted by agent ", self.number  )
+                            ## aggiungo l'id della news tra le news integrate
+                                    self.news_integrate.append(i)
+                            ## se integro la news allora modifico il mio score a seconda 
+                            # ## dello score della news integrata 
+                            # self.score = self.score + ((news_score - 0.5) / 100 )
+                            ## mando la notizia ai miei follower
+                                    send_news(self, i)
+                            ## uppo il contatore dei retweet
+                                    news["retweet"] += 1
+                            ## creo un link con l'autore della news
+                            # gvf.createEdge(self, autore)
+                                    gvf.createEdge(autore.number, self.number)
+                            ## aumento il contatore delle news ricevute 
+                                    self.counter_news_ricevute += 1
+
+                            
         ## pulisco la lista delle news da integrare 
-        del self.news_da_integrare[:]        
+            del self.news_da_integrare[:]
+
+        except:
+            return
+            
         return   
     
     def dictionary(self):
@@ -270,11 +352,11 @@ def send_news(self, news_to_send):
             ## aggiungo l'id della news alla lista delle news ricevute del mio follower
             ## devo accedere all'oggetto con id node
             receiver = common.agents[node]
-            gvf.createEdge(self.number, receiver.number)
+            #gvf.createEdge(self.number, receiver.number)
             # print("receiver ", receiver)
             # receiver.news_ricevute.append(news_to_send)   
             ## aggiungo l'id della news alla lista delle news da integrare del mio follower
-            receiver.news_da_integrare.append(news_to_send)   
+            receiver.news_da_integrare.append([news_to_send, self.number])   
             done = True 
             
         ## se il nodo selezionato non ha follower, allora sceglie un nodo a caso e la manda a lui        
