@@ -44,9 +44,9 @@ def createEdge(a, b):
         print("Internal error, attempt to create an edge with a node defined None")
         exit(0)
     try:
-        if not IsEdge(a,b):
-            common.follower.AddEdge(a,b)
-            common.information.AddEdge(a,b)
+       ## if not IsEdge(a,b):
+        common.follower.AddEdge(a,b)
+        common.information.AddEdge(a,b)
             ## https://snap.stanford.edu/snappy/doc/reference/graphs.html
     except BaseException:
         return
