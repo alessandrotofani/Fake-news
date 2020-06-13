@@ -270,6 +270,7 @@ def send_news(self, news_to_send):
             ## aggiungo l'id della news alla lista delle news ricevute del mio follower
             ## devo accedere all'oggetto con id node
             receiver = common.agents[node]
+            gvf.createEdge(self.number, receiver.number)
             # print("receiver ", receiver)
             # receiver.news_ricevute.append(news_to_send)   
             ## aggiungo l'id della news alla lista delle news da integrare del mio follower
