@@ -245,6 +245,10 @@ class Agent(SuperAgent):
     ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
     def bot_integrate_news(self):
         random.seed()
+        if self.agType == "left_bots":
+            soglia = 0.9
+        if self.agType == "right_bots" or self.agType == "breitbart":
+            soglia = 0.1
         try:
         # provo a integrare le news che mi sono appena arrivate
             for j in self.news_da_integrare:
@@ -261,8 +265,8 @@ class Agent(SuperAgent):
                     ## controllo che io non sia l'autore della news
                     ## controllo che non abbia già ricondiviso la news 
                             if autore != self and i not in self.news_integrate:
-                        ## le integro se lo score della news è abbastanza vicino al mio score 
-                                if news_score <= 0.1:
+                        ## le integro se lo score della news è abbastanza vicino al mio score
+                                if news_score <= soglia:
                             # print("News ", i, " with score ", news_score," tweeted by ", 
                             #       autore.number," has been retweeted by agent ", self.number  )
                             ## aggiungo l'id della news tra le news integrate
