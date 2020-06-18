@@ -245,8 +245,11 @@ class Agent(SuperAgent):
     ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
     def bot_integrate_news(self):
         random.seed()
+        to_integrate = False ## mi dice se devo integrare la news
+        left = False ## mi dice se il bot è della fazione left
         if self.agType == "left_bots":
-            soglia = 0.9
+            left = True
+            soglia = 0.75
         if self.agType == "right_bots" or self.agType == "breitbart":
             soglia = 0.1
         try:
@@ -266,9 +269,11 @@ class Agent(SuperAgent):
                     ## controllo che non abbia già ricondiviso la news 
                             if autore != self and i not in self.news_integrate:
                         ## le integro se lo score della news è abbastanza vicino al mio score
-                                if news_score <= soglia:
-                            # print("News ", i, " with score ", news_score," tweeted by ", 
-                            #       autore.number," has been retweeted by agent ", self.number  )
+                                if news_score <= soglia and not left:
+                                    to_integrate = True
+                                if news_score >= soglia and left:
+                                    to_integrate = True
+                                if to_integrate:
                             ## aggiungo l'id della news tra le news integrate
                                     self.news_integrate.append(i)
                             ## se integro la news allora modifico il mio score a seconda 
@@ -298,9 +303,11 @@ class Agent(SuperAgent):
                     ## controllo che non abbia già ricondiviso la news 
                             if autore != self and i not in self.news_integrate:
                         ## le integro se lo score della news è abbastanza vicino al mio score 
-                                if news_score <= 0.1:
-                                # print("News ", i, " with score ", news_score," tweeted by ", 
-                            #       autore.number," has been retweeted by agent ", self.number  )
+                                if news_score <= soglia and not left:
+                                    to_integrate = True
+                                if news_score >= soglia and left:
+                                    to_integrate = True
+                                if to_integrate:
                             ## aggiungo l'id della news tra le news integrate
                                     self.news_integrate.append(i)
                             ## se integro la news allora modifico il mio score a seconda 
