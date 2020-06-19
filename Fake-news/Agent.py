@@ -83,7 +83,7 @@ class Agent(SuperAgent):
             self.score = random.uniform(0, 0.1)
             
         if self.agType == "left_bots":
-            self.score = random.uniform(0.8, 0.9)
+            self.score = random.uniform(0.88, 0.9)
             
         if self.agType == "breitbart":
             self.score = 0.02
@@ -116,9 +116,10 @@ class Agent(SuperAgent):
 
     def getGraph(self):
         return common.follower
-        
-
     
+    def renumber(self):
+        self.number = common.shuffled_nodes_list[self.number]
+        return   
         
     ## funzione che crea la news 
     def create_news(self):
@@ -249,7 +250,7 @@ class Agent(SuperAgent):
         left = False ## mi dice se il bot è della fazione left
         if self.agType == "left_bots":
             left = True
-            soglia = 0.75
+            soglia = 0.8 #0.75
         if self.agType == "right_bots" or self.agType == "breitbart":
             soglia = 0.1
         try:

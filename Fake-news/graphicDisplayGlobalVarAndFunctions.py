@@ -30,6 +30,11 @@ def createGraph():
         if i == 0:
             print("inserting nodes")
         common.information.AddNode(i) ## aggiungo i nodi all'information network
+        common.shuffled_nodes_list.append(i)
+
+    random.shuffle(common.shuffled_nodes_list)
+    
+    
     print("Forward burning probability: ", forward) 
     print("Backward burning probability: ", backward) 
     print(" Networks created")

@@ -14,13 +14,13 @@ number_of_bots = total_number_of_nodes - number_of_users
 ## divido i nodi a seconda delle proporzioni nel file proporzioni 
 fake_news_users = 0.01 * number_of_users
 fake_news_users_list = []
-# n_fake = 5
-n_fake = 2
+n_fake = 3
+# n_fake = 2
 
 bias_right_users = 0.07 * number_of_users
 bias_right_users_list = []
-# n_biasright = 5
-n_biasright = 2
+n_biasright = 3
+# n_biasright = 2
 
 right_users = 0.10 * number_of_users
 right_users_list = []
@@ -49,11 +49,12 @@ n_left = 1
 
 bias_left_users = 0.02 * number_of_users
 bias_left_users_list = []
-# n_left = 2
-n_left = 1
+n_left = 2
+# n_left = 1
 
 links_per_node = 1 ## è il numero di link che ogni nodo formerà 
 orderedListOfNodes = []
+shuffled_nodes_list = []
 voters_list = []
 agents = {}
 connectednodes= [] ## lista con i nodi che hanno grado diverso da zero 
