@@ -1,2 +1,2 @@
-modelStep visualizeNet restart check clock 
+modelStep assortative restart check visualizeNet clock 
  

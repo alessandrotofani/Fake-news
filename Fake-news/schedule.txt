@@ -1,6 +1,7 @@
 # 1
 # 2
 all dictionary_init
+all renumber
 # 3
 voters create_news
 left_broadcasters create_news

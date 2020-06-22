@@ -82,6 +82,8 @@ def otherSubSteps(subStep, address):
             i.left_leaning = False
             i.left = False
             i.bias_left = False
+            if i.score == 0:
+                i.score = random.random()
             if i.score < 0.1:
                 i.fake_news = True
                 common.fake_news_users_list.append(i)
@@ -108,6 +110,69 @@ def otherSubSteps(subStep, address):
                 common.bias_left_users_list.append(i)
 
         return True
+
+    elif subStep == "assortative" and common.assortative:
+        common.assortative = False
+        print("creating assortative graph")
+        n_nodes = [] ## list of total number of nodes per fazione
+        n_nodes.append(common.fake_news_users)
+        n_nodes.append(common.bias_right_users)
+        n_nodes.append(common.right_users)
+        n_nodes.append(common.right_leaning_users)
+        n_nodes.append(common.center_users)
+        n_nodes.append(common.left_leaning_users)
+        n_nodes.append(common.left_users)
+        n_nodes.append(common.bias_left_users)
+        print(n_nodes)
+
+        scores = [] ## max score per fazione
+        scores.append(0)
+        scores.append(0.1)
+        scores.append(0.2)
+        scores.append(0.3)
+        scores.append(0.45)
+        scores.append(0.55)
+        scores.append(0.7)
+        scores.append(0.8)
+        scores.append(0.9)
+        print(scores)
+        
+        current_nodes = [] ## lista che contiene i nodi correnti di ogni fazione
+        ## creo l'algoritmo in modo che possa essere ripetuto per ogni fazione senza specificare
+        ## a priori la fazione con cui si sta lavorando
+        for i in range(8):
+            print("Step ", i)
+            current_nodes.append(0)
+            tot_nodes = n_nodes[i]
+            choose = True
+            while choose:
+                node = random.choice(common.voters_list)
+                # print(node)
+                if node.score == 0:
+                    choose = False
+                    # print("node chosen")
+                   
+            while current_nodes[i] < tot_nodes:
+                if node.score == 0:
+                    node.score = random.uniform(scores[i], scores[i+1])
+                    current_nodes[i] += 1
+                    # print(current_nodes)
+                    my_id = common.follower.GetNI(node.number)
+                    # print(my_id)
+                    temp = 0
+                    for vicino in my_id.GetOutEdges():
+                        if temp == 0:
+                            neighbor_agent = common.agents[vicino]
+                            node = neighbor_agent
+                            temp = 1
+                else:
+                    node = random.choice(common.voters_list)
+
+            print("Nodi ", current_nodes)
+            print("Nodi totali ", n_nodes)
+                
+    
+
             
 
 

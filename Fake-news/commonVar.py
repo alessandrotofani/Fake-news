@@ -88,6 +88,7 @@ scale_free_test = True ## dice se lo scale free test deve essere fatto o no
 PA_done = True ## mi dice se ho finito il preferential attachment
 analysis = True 
 verbose = False
+assortative = True
 
 ## ANALYSIS SECTION
 btwn = 0  # this variable will contain the betweenness centrality indicators
