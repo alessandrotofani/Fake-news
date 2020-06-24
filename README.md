@@ -6,10 +6,11 @@ USA del 2016.
 
 ## Il modello
 I nodi rappresentano gli agenti, cioè gli account twitter.
-I link rappresentano i retweet, cioè il nodo A è connesso al nodo B, se l'account A ha retwettato un tweet dell'account B.
-1. Si parte da un network random, scale free e diretto, con un numero fissato di nodi.
+Follower network: i link rappresentano il follow, cioè se A -> B, vuol dire che A è seguito da B.
+Information network: I link rappresentano i retweet, cioè se A -> B, se l'account A ha retwettato un tweet dell'account B.
+1. Si parte da un network random per quanto riguarda il follower network, scale free e diretto, con un numero fissato di nodi.
 2. Si impostano le regole della dinamica.
-3. Si valuta l'evoluzione del network nel tempo. 
+3. Si valuta l'evoluzione dell' information e del follower network nel tempo. 
 4. Analisi dei dati. 
 
 ## Dataset sul network di retweet 
@@ -20,7 +21,7 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
 ### Fase 1: costruzione della rete ... completata
 - Costruire i nodi ... done
 - Implementare il preferential attachment ... done
-- [Forest Fire](https://arxiv.org/pdf/physics/0603229.pdf)
+- [Forest Fire](https://arxiv.org/pdf/physics/0603229.pdf) per il follower network.
 - [Forest Fire Algorithm](http://snap.stanford.edu/snappy/doc/reference/GenForestFire.html)
 - [Modello](https://ccl.northwestern.edu/netlogo/models/PreferentialAttachment) in Netlogo
 
@@ -47,16 +48,16 @@ Vorremmo arrivare a riprodurre i seguenti [risultati](https://www.nature.com/art
   - Frequenza di creazione delle news rispettando le proporzioni ... done
 
 ### Fase 5: analisi dati 
-- Impostare l'analisi dati: conviene scrivere i dati in un file separato 
+- Impostare l'analisi dati: conviene scrivere i dati in un file separato ... done
 [Scrivere un file csv](https://www.programiz.com/python-programming/writing-csv-file)
 [Scrivere un file da python](https://www.w3schools.com/python/python_file_write.asp)
-- Network Analysis: 
+- Network Analysis: ... done
 [Power law fitting](https://github.com/micheletizzoni/Complexity-in-social-systems/blob/master/2-networkx/nb04_powerlaw_fitting.ipynb) //
 [Clustering](https://github.com/micheletizzoni/Complexity-in-social-systems/blob/master/2-networkx/nb05_network_analysis.ipynb)
 //[Barabasi power law fitting](https://barabasi.com/f/623.pdf) vedere pagina 44. 
 
 ## Run it online with Binder
-[Binder](https://mybinder.org/v2/gh/alessandrotofani/Fake-news/snap?filepath=iRunShellOnline.ipynb)
+[Binder](https://mybinder.org/v2/gh/alessandrotofani/Fake-news/follower?filepath=iRunShellOnline.ipynb)
 
 ## Useful links
 - [Regole della dinamica](https://docs.google.com/document/d/1kIeEAsEj68Kzrlez-EyenRuGMm5y2Hc0zdkFIFzppUE/edit?usp=sharing)
