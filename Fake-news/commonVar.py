@@ -1,14 +1,16 @@
 import random 
 import math
+import numpy as np
+from scipy.sparse import csr_matrix 
 ## tutorial sui dictionary
 ## https://www.w3schools.com/python/python_dictionaries.asp
 
 ## NODE SECTION
 ## numero totale di nodi nel network
-total_number_of_nodes = 100000
+total_number_of_nodes = 10000
 users = 0.96 * total_number_of_nodes
 number_of_users = math.floor(users)
-number_of_left_broadcasters = 4
+number_of_left_broadcasters = 3
 number_of_bots = total_number_of_nodes - number_of_users
 
 ## divido i nodi a seconda delle proporzioni nel file proporzioni 
@@ -61,6 +63,13 @@ connectednodes= [] ## lista con i nodi che hanno grado diverso da zero
 nodesdegree = [] ## lista che contiene i gradi dei nodi
 all_parameters = []
 inizial_parameters = []
+
+## TRUST MATRIX
+## gli elementi vanno da 0 a 100
+## trust = csr_matrix((total_number_of_nodes, total_number_of_nodes)) ## inizializzo la matrice di trust come sparse
+prob_debunking = 0.1 ## probabilità di fare debunking
+big_penalty = 10
+small_penalty = 5
 
 ## GRAPH SECTION
 information = 0 ## information network

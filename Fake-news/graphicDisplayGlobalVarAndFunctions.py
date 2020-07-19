@@ -52,6 +52,7 @@ def createEdge(a, b):
        ## if not IsEdge(a,b):
         common.follower.AddEdge(a,b)
         common.information.AddEdge(a,b)
+        common.trust[a,b] = 50
             ## https://snap.stanford.edu/snappy/doc/reference/graphs.html
     except BaseException:
         return

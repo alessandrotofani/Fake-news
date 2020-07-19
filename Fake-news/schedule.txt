@@ -1,6 +1,8 @@
 # 1
 # 2
 all dictionary_init
+all renumber
+all trust_init
 # 3
 voters create_news
 left_broadcasters create_news

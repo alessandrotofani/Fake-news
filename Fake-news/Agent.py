@@ -3,7 +3,8 @@ from agTools import *
 import pandas as pd
 import graphicDisplayGlobalVarAndFunctions as gvf
 import commonVar as common
-import random 
+import random
+import math
 
 
 ## definisco l'agente e tutti i metodi
@@ -39,6 +40,8 @@ class Agent(SuperAgent):
         self.left = False
         self.bias_left = False
 
+        self.debunker = False ## mi dice se è un debunker
+        self.trust = {}
 
         if self.agType == "left_broadcasters":
             self.score = random.uniform(0.45,0.7)
@@ -103,6 +106,8 @@ class Agent(SuperAgent):
         self.counter_news_ricevute = 0
         ## lista che contiene l'd news che l'agente ha integrato, cioè i suoi belief 
         self.news_integrate = []
+        ## lista che contiene l'is delle news che l'agente sa che sono fake
+        self.fake = []
         
         # the graph
         if gvf.getGraph() == 0:
@@ -164,14 +169,13 @@ class Agent(SuperAgent):
         
         return
     
-        
+
     
     ## funzione per integrare la news che mi arriva 
     ## https://www.geeksforgeeks.org/python-find-dictionary-matching-value-in-list/
     def integrate_news(self):
         random.seed()
-        try:
-        # provo a integrare le news che mi sono appena arrivate
+        try: # provo a integrare le news che mi sono appena arrivate
             for j in self.news_da_integrare:
                 if len(j) == 2:
                     i = j[0]
@@ -182,61 +186,53 @@ class Agent(SuperAgent):
                         ## estraggo le feature della news 
                             news_score = news["score"]
                             autore = news["autore"]
-                        ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
-                        ## controllo che io non sia l'autore della news
-                        ## controllo che non abbia già ricondiviso la news 
+                            deb = True ## controllo di non aver fatto io stesso il debunking della news 
+                            ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
+                            ## controllo che io non sia l'autore della news
+                            ## controllo che non abbia già ricondiviso la news 
                             if autore != self and i not in self.news_integrate:
-                                ## le integro se lo score della news è abbastanza vicino al mio score 
-                                if abs(self.score - news_score) < random.random():
-                            ## aggiungo l'id della news tra le news integrate
+                                ## controllo che la news non sia fake
+                                if self.debunker and news_score < 0.1 and common.prob_debunking > random.random(): ##and common.prob_debunking > random.random():
+                                    self.fake.append(i) ## aggiungo la news fake tra quelle che conosco
+                                    debunk(self, i, autore.number) ## dico ai miei vicini che quella news è fake
+                                    big_change_trust(self, autore.number) ## se la news che mi arriva è fake e lo so, allora modifico la matrice di trust
+                                    deb = False
+                                    
+                                if i in self.fake and deb: ## se la news che mi arriva è fake e lo so, allora modifico la matrice di trust
+                                    big_change_trust(self, autore.number)
+##                                    print("Agent", autore.number, " has sent me a fake news")
+                                    return
+                                ##le integro se lo score della news è abbastanza vicino al mio score e se mi fido abbastanza di chi retweetta la news
+                                trst = self.trust.get(autore.number)
+                                if trst is None:
+                                    self.trust[autore.number] = 50
+                                    trst = self.trust.get(autore.number)
+##                                print(trst)
+                                if abs(self.score - news_score) < random.random() and (trst / 100) > random.random(): 
+                                    ## aggiungo l'id della news tra le news integrate
                                     self.news_integrate.append(i)
-                            ## se integro la news allora modifico il mio score a seconda 
-                            ## dello score della news integrata 
+                                    ## se integro la news allora modifico il mio score a seconda 
+                                    ## dello score della news integrata 
                                     self.score = self.score + ((news_score - 0.5) / 100 )
-                            ## mando la notizia ai miei follower
+                                    ## mando la notizia ai miei follower
                                     send_news(self, i)
-                            ## uppo il contatore dei retweet
+                                    ## uppo il contatore dei retweet
                                     news["retweet"] += 1
-                            ## creo il link   autore news -> self
+                                    ## creo il link   autore news -> self
                                     gvf.createEdge(autore.number, self.number)
                                     gvf.createEdge(sender, self.number)
-                            ## aumento il contatore delle news ricevute 
+                                    ## aumento il contatore delle news ricevute 
                                     self.counter_news_ricevute += 1
+##                                    print("Integrated news")
+
+      
 
 
-                if len(j) == 1:
-                    i = j 
-            # provo a integrare le news che mi sono appena arrivate
-                ## seleziono la news dal dictionary che le contiene tutte 
-                    for news in common.news:
-                        if news["id"] == i:
-                        ## estraggo le feature della news 
-                            news_score = news["score"]
-                            autore = news["autore"]
-                        ## https://stackoverflow.com/questions/10406130/check-if-something-is-not-in-a-list-in-python
-                        ## controllo che io non sia l'autore della news
-                        ## controllo che non abbia già ricondiviso la news 
-                            if autore != self and i not in self.news_integrate:
-                            ## le integro se lo score della news è abbastanza vicino al mio score 
-                                if abs(self.score - news_score) < random.random():
-                            ## aggiungo l'id della news tra le news integrate
-                                    self.news_integrate.append(i)
-                                ## se integro la news allora modifico il mio score a seconda 
-                            ## dello score della news integrata 
-                                    self.score = self.score + ((news_score - 0.5) / 100 )
-                                ## mando la notizia ai miei follower
-                                    send_news(self, i)
-                            ## uppo il contatore dei retweet
-                                    news["retweet"] += 1
-                            ## creo il link   autore news -> self
-                                    gvf.createEdge(autore.number, self.number)
-                            ## aumento il contatore delle news ricevute 
-                                    self.counter_news_ricevute += 1
-            
         ## pulisco la lista delle news da integrare
             del self.news_da_integrare[:]
 
         except:
+            print("Not done")
             return
         
         return
@@ -345,6 +341,19 @@ class Agent(SuperAgent):
                                       "score" : self.score})
         return
 
+    def trust_init(self):
+        try:
+            my_id = common.follower.GetNI(self.number)
+            for node in my_id.GetInEdges():
+                other_node = common.agents[node]
+                self.trust[other_node.number] = 50 ## inizializzazione del trust uniforme
+            # print(self.trust)
+        except BaseException:
+            print("init not done")
+            return
+
+        return
+
 ## calcola la somma dei degree di tutti i nodi 
 def totaldegree(): ## funziona 
     totaldegree = 0
@@ -366,7 +375,7 @@ def send_news(self, news_to_send):
             receiver = common.agents[node]
             #gvf.createEdge(self.number, receiver.number)
             # print("receiver ", receiver)
-            # receiver.news_ricevute.append(news_to_send)   
+            receiver.news_ricevute.append(news_to_send)   
             ## aggiungo l'id della news alla lista delle news da integrare del mio follower
             receiver.news_da_integrare.append([news_to_send, self.number])   
             done = True 
@@ -378,10 +387,62 @@ def send_news(self, news_to_send):
             ## aggiungo l'id della news alla lista delle news ricevute dal destinatario
             i.news_ricevute.append(news_to_send)
             ## aggiungo l'id della news alla lista delle news da integrare del mio follower
-            i.news_da_integrare.append(news_to_send)
+            i.news_da_integrare.append([news_to_send, self.number])
                    
     except BaseException:
-        print("Not done")        
+        print("Not sent")        
      
     return
 
+
+
+def debunk(self, news, autore):
+    try:
+        aut = autore
+        my_id = common.follower.GetNI(self.number)
+        for node in my_id.GetInEdges():
+            receiver = common.agents[node]
+            receiver.fake.append(news) ## dico ai miei vicini che quella news è fake
+            small_change_trust(receiver, aut, self)
+##            print("debunkin")
+
+    except:
+        print("debunk not done")
+        return
+    return
+
+def big_change_trust(self, autore):
+    try:
+        trst = self.trust.get(autore)
+        if trst is None:
+            self.trust[autore] = 50
+            trst = self.trust[autore]
+        if trst > common.big_penalty :
+            self.trust[autore] = trst - common.big_penalty 
+##        if self.trust[autore] > common.big_penalty :
+##            self.trust[autore] = self.trust[autore] - common.big_penalty 
+    ##        print("Big change in trust")
+
+    except:
+        print("Big change not done")
+    return
+
+def small_change_trust(self, autore, deb):
+    try:
+        trst = self.trust.get(autore)
+        if trst is None:
+            self.trust[autore] = 50
+            trst = self.trust[autore]
+        if trst > common.small_penalty :
+            self.trust[autore] = trst - common.small_penalty ## diminuisco il trust di chi mi ha girato la fake news
+    ##        print("Small change in trust")
+        trst_deb = self.trust.get(deb.number)
+        if trst_deb is None:
+            self.trust[deb] = 50
+            trst_deb = self.trust[deb] 
+        if trst_deb < 100 +  common.small_penalty:
+            self.trust[deb.number] = trst_deb + common.small_penalty ## aumento il trust di chi mi ha detto che la news era fake
+
+    except:
+        print("small change not done")
+    return

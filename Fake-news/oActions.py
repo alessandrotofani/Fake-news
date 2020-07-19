@@ -107,6 +107,9 @@ def otherSubSteps(subStep, address):
                 i.bias_left = True
                 common.bias_left_users_list.append(i)
 
+            if i.score > 0:
+                i.debunker = True
+
         return True
             
 
