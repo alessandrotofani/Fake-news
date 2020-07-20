@@ -224,6 +224,8 @@ class Agent(SuperAgent):
                                     ## aumento il contatore delle news ricevute 
                                     self.counter_news_ricevute += 1
 ##                                    print("Integrated news")
+                                    ## se integro la news, aumento il trust di chi me la manda 
+                                    med_change_trust(self,autore.number)
 
       
 
@@ -419,13 +421,22 @@ def big_change_trust(self, autore):
             trst = self.trust[autore]
         if trst > common.big_penalty :
             self.trust[autore] = trst - common.big_penalty 
-##        if self.trust[autore] > common.big_penalty :
-##            self.trust[autore] = self.trust[autore] - common.big_penalty 
-    ##        print("Big change in trust")
-
     except:
         print("Big change not done")
     return
+
+def med_change_trust(self, autore):
+    try:
+        trst = self.trust.get(autore)
+        if trst is None:
+            self.trust[autore] = 50
+            trst = self.trust[autore]
+        if trst < 100 - common.big_penalty :
+            self.trust[autore] = trst + common.med_penalty 
+    except:
+        print("Med change not done")
+    return
+
 
 def small_change_trust(self, autore, deb):
     try:

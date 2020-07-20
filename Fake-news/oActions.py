@@ -82,6 +82,8 @@ def otherSubSteps(subStep, address):
             i.left_leaning = False
             i.left = False
             i.bias_left = False
+            i.debunker = False
+            
             if i.score < 0.1:
                 i.fake_news = True
                 common.fake_news_users_list.append(i)
@@ -107,7 +109,7 @@ def otherSubSteps(subStep, address):
                 i.bias_left = True
                 common.bias_left_users_list.append(i)
 
-            if i.score > 0:
+            if i.score > 0.4:
                 i.debunker = True
 
         return True

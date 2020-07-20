@@ -69,7 +69,8 @@ inizial_parameters = []
 ## trust = csr_matrix((total_number_of_nodes, total_number_of_nodes)) ## inizializzo la matrice di trust come sparse
 prob_debunking = 0.1 ## probabilità di fare debunking
 big_penalty = 10
-small_penalty = 5
+small_penalty = 2
+med_penalty = 6
 
 ## GRAPH SECTION
 information = 0 ## information network
