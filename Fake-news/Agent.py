@@ -205,7 +205,7 @@ class Agent(SuperAgent):
                                 ##le integro se lo score della news è abbastanza vicino al mio score e se mi fido abbastanza di chi retweetta la news
                                 trst = self.trust.get(autore.number)
                                 if trst is None:
-                                    self.trust[autore.number] = 50
+                                    self.trust[autore.number] = common.initial_trust
                                     trst = self.trust.get(autore.number)
 ##                                print(trst)
                                 if abs(self.score - news_score) < random.random() and (trst / 100) > random.random(): 
@@ -348,7 +348,7 @@ class Agent(SuperAgent):
             my_id = common.follower.GetNI(self.number)
             for node in my_id.GetInEdges():
                 other_node = common.agents[node]
-                self.trust[other_node.number] = 50 ## inizializzazione del trust uniforme
+                self.trust[other_node.number] = common.initial_trust ## inizializzazione del trust uniforme
             # print(self.trust)
         except BaseException:
             print("init not done")
@@ -417,7 +417,7 @@ def big_change_trust(self, autore):
     try:
         trst = self.trust.get(autore)
         if trst is None:
-            self.trust[autore] = 50
+            self.trust[autore] = common.initial_trust
             trst = self.trust[autore]
         if trst > common.big_penalty :
             self.trust[autore] = trst - common.big_penalty 
@@ -429,7 +429,7 @@ def med_change_trust(self, autore):
     try:
         trst = self.trust.get(autore)
         if trst is None:
-            self.trust[autore] = 50
+            self.trust[autore] = common.initial_trust
             trst = self.trust[autore]
         if trst < 100 - common.big_penalty :
             self.trust[autore] = trst + common.med_penalty 
@@ -442,14 +442,14 @@ def small_change_trust(self, autore, deb):
     try:
         trst = self.trust.get(autore)
         if trst is None:
-            self.trust[autore] = 50
+            self.trust[autore] = common.initial_trust
             trst = self.trust[autore]
         if trst > common.small_penalty :
             self.trust[autore] = trst - common.small_penalty ## diminuisco il trust di chi mi ha girato la fake news
     ##        print("Small change in trust")
         trst_deb = self.trust.get(deb.number)
         if trst_deb is None:
-            self.trust[deb] = 50
+            self.trust[deb] = common.initial_trust
             trst_deb = self.trust[deb] 
         if trst_deb < 100 +  common.small_penalty:
             self.trust[deb.number] = trst_deb + common.small_penalty ## aumento il trust di chi mi ha detto che la news era fake
